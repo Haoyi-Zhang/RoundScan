@@ -1,0 +1,190 @@
+#!/usr/bin/env python3
+"""Run the frozen and stress campaigns with one isolated worker at a time."""
+from __future__ import annotations
+import argparse
+import csv
+import json
+import os
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from fixedscan.checker import load_and_check
+from fixedscan.model import Instance
+
+METHODS = ("interval", "fresh", "syntactic", "residue", "exact-dp")
+FIELDS = (
+    "case", "family", "horizon", "method", "status",
+    "production_cpu_seconds", "production_wall_seconds", "process_cpu_seconds",
+    "nodes", "certificate_bytes", "checker_cpu_seconds", "checked_nodes",
+    "peak_rss_kib", "queries", "encoding_bytes",
+)
+
+
+def run_task(case_path: Path, method: str, split: str, cert_path: Path) -> dict:
+    internal_timeout = 20.0 if split == "frozen" else (5.0 if method != "exact-dp" else 12.0)
+    hard_timeout = internal_timeout + 5.0
+    max_nodes = 5000 if split == "frozen" else 20000
+    cmd = [
+        sys.executable, str(ROOT / "scripts" / "run_one.py"), str(case_path), method,
+        "--max-nodes", str(max_nodes), "--timeout", str(internal_timeout),
+    ]
+    if method != "exact-dp":
+        cmd += ["--certificate", str(cert_path)]
+    env = os.environ.copy(); env["PYTHONPATH"] = str(ROOT / "src")
+    wall_start = time.monotonic()
+    try:
+        cp = subprocess.run(cmd, capture_output=True, text=True, env=env, timeout=hard_timeout, check=False)
+    except subprocess.TimeoutExpired:
+        return {
+            "kind": "timeout", "status": "unknown", "wall": time.monotonic() - wall_start,
+            "error": "hard subprocess timeout",
+        }
+    wall = time.monotonic() - wall_start
+    if cp.returncode != 0:
+        return {"kind": "error", "status": "unknown", "wall": wall, "error": cp.stderr[-4000:]}
+    try:
+        out = json.loads(cp.stdout.strip().splitlines()[-1])
+    except Exception as exc:
+        return {"kind": "error", "status": "unknown", "wall": wall, "error": f"bad task output: {exc}: {cp.stdout[-1000:]}"}
+    out["process_wall_seconds"] = wall
+    return out
+
+
+def row_from_raw(raw: dict) -> dict:
+    task = raw["task"]; checker = raw.get("checker")
+    status = task.get("status", "unknown")
+    production_cpu = production_wall = process_cpu = None
+    nodes = cert_bytes = queries = None
+    if task.get("kind") == "cover":
+        status = task["status"]; d = task["diagnostics"]
+        production_cpu = d["cpu_seconds"]; production_wall = d["wall_seconds"]; process_cpu = d["cpu_seconds"]
+        nodes = d["nodes"]; cert_bytes = task.get("certificate_bytes")
+    elif task.get("kind") == "baseline":
+        r = task["result"]; status = r["status"]
+        production_cpu = r["cpu_seconds"]; production_wall = r["wall_seconds"]; process_cpu = r["cpu_seconds"]; queries = r["queries"]
+    return {
+        "case": raw["case"], "family": raw["family"], "horizon": raw["horizon"], "method": raw["method"], "status": status,
+        "production_cpu_seconds": production_cpu, "production_wall_seconds": production_wall, "process_cpu_seconds": process_cpu,
+        "nodes": nodes, "certificate_bytes": cert_bytes,
+        "checker_cpu_seconds": checker["cpu_seconds"] if checker else None,
+        "checked_nodes": checker["checked_nodes"] if checker else None,
+        "peak_rss_kib": task.get("peak_rss_kib"), "queries": queries, "encoding_bytes": None,
+    }
+
+
+def collect_split(split: str) -> list[dict]:
+    rows = []
+    for path in sorted((ROOT / "results" / "raw" / split).glob("*.json")):
+        with path.open("r", encoding="utf-8") as f:
+            rows.append(row_from_raw(json.load(f)))
+    rows.sort(key=lambda r: (r["case"], METHODS.index(r["method"])))
+    metrics_path = ROOT / "results" / f"{split}-metrics.csv"
+    with metrics_path.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=FIELDS); w.writeheader(); w.writerows(rows)
+    summarize(split, rows)
+    return rows
+
+
+def run_split(split: str, start: int = 0, count: int | None = None) -> list[dict]:
+    case_dir = ROOT / "cases" / split
+    raw_dir = ROOT / "results" / "raw" / split
+    cert_dir = ROOT / "results" / "certificates" / split
+    raw_dir.mkdir(parents=True, exist_ok=True); cert_dir.mkdir(parents=True, exist_ok=True)
+    rows: list[dict] = []
+    all_cases = sorted(case_dir.glob("*.json"))
+    cases = all_cases[start:] if count is None else all_cases[start:start + count]
+    for case_no, case_path in enumerate(cases, start + 1):
+        inst = Instance.load(case_path)
+        for method in METHODS:
+            raw_path = raw_dir / f"{inst.name}-{method}.json"
+            if raw_path.exists():
+                with raw_path.open("r", encoding="utf-8") as f:
+                    existing = json.load(f)
+                rows.append(row_from_raw(existing))
+                continue
+            cert_path = cert_dir / f"{inst.name}-{method}.json"
+            if cert_path.exists(): cert_path.unlink()
+            task = run_task(case_path, method, split, cert_path)
+            if task.get("certificate"):
+                task["certificate"] = str(cert_path.relative_to(ROOT))
+            checker = None
+            status = task.get("status", "unknown")
+            production_cpu = production_wall = process_cpu = None
+            nodes = cert_bytes = queries = None
+            if task.get("kind") == "cover":
+                status = task["status"]
+                d = task["diagnostics"]
+                production_cpu = d["cpu_seconds"]; production_wall = d["wall_seconds"]
+                process_cpu = d["cpu_seconds"]
+                nodes = d["nodes"]; cert_bytes = task.get("certificate_bytes")
+                if status != "unknown":
+                    checker = load_and_check(cert_path, inst)
+                    if not checker["accepted"]:
+                        raise RuntimeError(f"checker rejected {cert_path}: {checker}")
+            elif task.get("kind") == "baseline":
+                r = task["result"]; status = r["status"]
+                production_cpu = r["cpu_seconds"]; production_wall = r["wall_seconds"]
+                process_cpu = r["cpu_seconds"]; queries = r["queries"]
+            else:
+                status = "unknown"
+            if split == "frozen":
+                expected = "safe" if bool(inst.metadata["oracle_safe"]) else "violated"
+                if status != expected:
+                    raise RuntimeError(f"frozen disagreement for {inst.name}/{method}: {status} != {expected}; task={task}")
+            raw = {
+                "case": inst.name, "family": inst.family, "horizon": inst.horizon,
+                "method": method, "task": task, "checker": checker,
+            }
+            with raw_path.open("w", encoding="utf-8") as f:
+                json.dump(raw, f, indent=2, sort_keys=True); f.write("\n")
+            row = {
+                "case": inst.name, "family": inst.family, "horizon": inst.horizon,
+                "method": method, "status": status,
+                "production_cpu_seconds": production_cpu,
+                "production_wall_seconds": production_wall,
+                "process_cpu_seconds": process_cpu,
+                "nodes": nodes,
+                "certificate_bytes": cert_bytes,
+                "checker_cpu_seconds": checker["cpu_seconds"] if checker else None,
+                "checked_nodes": checker["checked_nodes"] if checker else None,
+                "peak_rss_kib": task.get("peak_rss_kib"),
+                "queries": queries,
+                "encoding_bytes": None,
+            }
+            rows.append(row)
+        print(f"[{split}] {case_no}/{len(all_cases)} {inst.name}", flush=True)
+    return rows
+
+
+def summarize(split: str, rows: list[dict]) -> None:
+    summary: dict[str, object] = {"split": split, "instances": len({r['case'] for r in rows}), "methods": {}}
+    for method in METHODS:
+        rs = [r for r in rows if r["method"] == method]
+        summary["methods"][method] = {
+            "status_counts": {s: sum(r["status"] == s for r in rs) for s in ("safe", "violated", "unknown")},
+            "total_nodes": sum(int(r["nodes"] or 0) for r in rs),
+            "total_certificate_bytes": sum(int(r["certificate_bytes"] or 0) for r in rs),
+            "producer_cpu_seconds": sum(float(r["production_cpu_seconds"] or 0) for r in rs),
+            "checker_cpu_seconds": sum(float(r["checker_cpu_seconds"] or 0) for r in rs),
+        }
+    with (ROOT / "results" / f"{split}-summary.json").open("w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=2, sort_keys=True); f.write("\n")
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--split", choices=("frozen", "stress", "all"), default="all")
+    ap.add_argument("--start", type=int, default=0)
+    ap.add_argument("--count", type=int)
+    args = ap.parse_args()
+    splits = ("frozen", "stress") if args.split == "all" else (args.split,)
+    for split in splits:
+        run_split(split, args.start, args.count); collect_split(split)
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,29 @@
+{
+  "checks": {
+    "accepted_certificates": 334,
+    "block_prefix_vectors": 4914,
+    "block_witness_lifts": 4,
+    "cross_path_prefixes": 45072,
+    "dp_exhaustive_outputs": 48,
+    "fixed_width_assignments": 832,
+    "frozen_node_totals": 1,
+    "oracle_prefix_evaluations": 45072,
+    "packed_assignments": 6474,
+    "packed_formulas": 867,
+    "rejected_admission_limits": 4,
+    "rejected_duplicate_keys": 1,
+    "rejected_instance_files": 4,
+    "rejected_mutations": 35,
+    "rejected_nonfinite_constants": 2,
+    "rejected_noninteger_inputs": 4,
+    "rejected_strict_model_values": 3,
+    "result_method_summaries": 10,
+    "rne_q_counterexamples": 4,
+    "rounding_values": 968,
+    "sound_enclosures": 1920,
+    "translation_periods": 8,
+    "verified_references": 30
+  },
+  "status": "PASS",
+  "total_assertion_units": 106611
+}

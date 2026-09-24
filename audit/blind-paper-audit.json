@@ -1,0 +1,972 @@
+{
+  "checks": {
+    "compile": {
+      "rc": 12,
+      "seconds": 1.9726314544677734,
+      "tail": "Document Class: amsart 2020/05/29 v2.20.6\n(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty\nFor additional information on amsmath, use the `?' option.\n(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty\n(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty\n(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def)\n(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg))\n(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty\n(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)\n(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/totpages/totpages.sty\n(/usr/share/texlive/texmf-dist/tex/latex/everyshi/everyshi.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/environ/environ.sty\n(/usr/share/texlive/texmf-dist/tex/latex/trimspaces/trimspaces.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty\n(/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)\n(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)\n(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty\n(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty\n(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty\n(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))\n(/usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)\n(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)\n(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)\n(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty\n(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def\n(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty\n(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))\n(/usr/share/texlive/texmf-dist/tex/latex/hyperxmp/hyperxmp.sty\n(/usr/share/texlive/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/ifdraft.sty)\n(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifluatex.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty\n(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty\n(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)\n(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def)))\n(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty\n(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)\n(/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx))\n(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty\n(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/ncctools/manyfoot.sty\n(/usr/share/texlive/texmf-dist/tex/latex/ncctools/nccfoots.sty))\n(/usr/share/texlive/texmf-dist/tex/generic/pdftex/glyphtounicode.tex)\n(/usr/share/texlive/texmf-dist/tex/latex/cmap/cmap.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty<<t1.cmap>>)\n(/usr/share/texlive/texmf-dist/tex/latex/libertine/libertine.sty\n(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifxetex.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/fontaxes/fontaxes.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/libertine/LinLibertine_I.tex))\n(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/zi4.sty\n`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe))\n(/usr/share/texlive/texmf-dist/tex/latex/newtx/newtxmath.sty\n`newtxmath' v1.754, 2024/09/22 Math macros based originally on txfonts (msharpe\n) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/centernot.sty)\n(/usr/share/texlive/texmf-dist/tex/generic/kastrup/binhex.tex)\namsthm NOT loaded\n) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/pifont.sty\n(/usr/share/texlive/texmf-dist/tex/latex/psnfss/upzd.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/psnfss/upsy.fd))\n(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty\n(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty\n(/usr/share/texlive/texmf-dist/tex/latex/caption/caption-ams-smf.sto)))\n(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty\nExcluding comment 'comment') Excluding comment 'CCSXML'\n(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)\nSpecial comment 'acks'\n(/usr/share/texlive/texmf-dist/tex/latex/libertine/T1LinuxLibertineT-TLF.fd))\n(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty\n(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty))\n(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty\n(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty\n(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)))\n(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty\n(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered\n.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de\nf)))\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.\ntex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.\ntex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code\n.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet\nric.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod\ne.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison\n.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.\ntex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code\n.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.\ntex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari\nthmetics.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te\nx)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.\ncode.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code\n.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te\nx)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c\node.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation\ns.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex\n)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t\nex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing\n.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te\nx)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex\n)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex\n)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.\ntex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te\nx)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c\node.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.\ntex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex))\n)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex\n) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex\n)\n(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65\n.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18\n.sty)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty\n(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))\n(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex\n\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers\n.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex\n)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik\nzlibrarytopaths.code.tex)))\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.\ncode.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik\nzlibrarypositioning.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik\nzlibraryfit.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik\nzlibrarycalc.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik\nzlibrarypatterns.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.cod\ne.tex)) (/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplots.sty\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code\n.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.t\nex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp\ngfsupp_loader.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex\n)\nPackage pgfplots: loading complementary utilities for your pgf version...\n\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp\ngfsupp_pgfutil-common-lists.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotslists\ntructure.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotslists\ntructureext.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray\n.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatri\nx.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshare\nd.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque\n.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.te\nx\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.co\nde.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code\n.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.sur\nfshading.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surf\nshading.pgfsys-pdftex.def)))\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.\ntex\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex\n))\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.t\nex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.t\nex\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.cod\ne.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.\ntex)))\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.cod\ne.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex\n) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex\n) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik\nzlibrarydecorations.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.cod\ne.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik\nzlibrarydecorations.pathmorphing.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary\ndecorations.pathmorphing.code.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik\nzlibrarydecorations.pathreplacing.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary\ndecorations.pathreplacing.code.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.co\nntourlua.code.tex))\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik\nzlibraryplotmarks.code.tex\n(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.co\nde.tex))) (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty)\n(/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty)\nInclude comment 'screenonly' Excluding comment 'printonly'\nExcluding comment 'anonsuppress' Excluding comment 'acks'\n(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)\n(./main.aux) (/usr/share/texlive/texmf-dist/tex/latex/newtx/omlnxlmi.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/newtx/untxexa.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/newtx/lmsntxsy.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/newtx/lmxntxexx.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/libertine/OT1LinuxLibertineT-TLF.fd)<<\not1.cmap>><<oml.cmap>>\n(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/newtx/untxmia.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/newtx/untxsym.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/newtx/untxsyc.fd)\n(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii\n[Loading MPS to PDF converter (version 2006.09.02).]\n) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty\n(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))\n*geometry* driver: auto-detecting\n*geometry* detected driver: pdftex\n(/usr/share/texlive/texmf-dist/tex/latex/upquote/upquote.sty)\nPackage pgfplots notification 'compat/show suggested version=true': document ha\ns been generated with the most recent feature set (\\pgfplotsset{compat=1.18}).\n\n(/usr/share/texlive/texmf-dist/tex/latex/libertine/T1LinuxBiolinumT-TLF.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-TLF.fd)\n(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg)\n(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg)\n\nPackage natbib Warning: Citation `ko2025ssmrdu' on page 1 undefined on input li\nne 48.\n\n\nPackage natbib Warning: Citation `dao2024duality' on page 1 undefined on input \nline 48.\n\n\nPackage natbib Warning: Citation `zhang2023qebverif' on page 1 undefined on inp\nut line 50.\n\n\n(/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-pdfdoc.def)\n(/usr/share/texlive/texmf-dist/tex/generic/stringenc/se-utf8.def) [1.1{/var/lib\n/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/\nenc/dvips/libertine/lbtn_76gpa5.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dv\nips/libertine/lbtn_25tcsq.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/li\nbertine/lbtn_naooyc.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertin\ne/lbtn_nh77jq.enc}]\n\nLaTeX Warning: Reference `sec:semantics' on page 2 undefined on input line 67.\n\n\nLaTeX Warning: Reference `sec:paired' on page 2 undefined on input line 67.\n\n\nLaTeX Warning: Reference `sec:certificates' on page 2 undefined on input line 6\n7.\n\n\nLaTeX Warning: Reference `sec:composition' on page 2 undefined on input line 67\n.\n\n\nLaTeX Warning: Reference `sec:barrier' on page 2 undefined on input line 67.\n\n\nLaTeX Warning: Reference `sec:implementation' on page 2 undefined on input line\n 67.\n\n\nLaTeX Warning: Reference `sec:evaluation' on page 2 undefined on input line 67.\n\n\n\nLaTeX Warning: Reference `sec:related' on page 2 undefined on input line 67.\n\n\n[2.2{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}]\n\nLaTeX Warning: Reference `eq:rne' on page 3 undefined on input line 84.\n\n\nLaTeX Warning: Reference `eq:reference' on page 3 undefined on input line 102.\n\n\nLaTeX Warning: Reference `fig:semantics' on page 3 undefined on input line 115.\n\n\n\n[3.3{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_fygcup.enc}]\n\nLaTeX Warning: Reference `tab:running' on page 4 undefined on input line 160.\n\n\nLaTeX Warning: Reference `eq:lowered' on page 4 undefined on input line 182.\n\n\nLaTeX Warning: Reference `sec:implementation' on page 4 undefined on input line\n 182.\n\n\n[4.4]\n\nLaTeX Warning: Reference `tab:declaration' on page 5 undefined on input line 18\n4.\n\n\nLaTeX Warning: Reference `eq:floor' on page 5 undefined on input line 217.\n\n\nLaTeX Warning: Reference `eq:rne' on page 5 undefined on input line 217.\n\n\nLaTeX Warning: Reference `eq:summary-matrix' on page 5 undefined on input line \n217.\n\n\nLaTeX Warning: Reference `eq:summary-bias' on page 5 undefined on input line 21\n7.\n\n\n[5.5{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}]\n\nLaTeX Warning: Reference `lem:translation' on page 6 undefined on input line 24\n2.\n\n\nLaTeX Warning: Reference `lem:translation' on page 6 undefined on input line 25\n8.\n\n\nLaTeX Warning: Reference `def:paired' on page 6 undefined on input line 269.\n\n\n[6.6{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}]\n\nLaTeX Warning: Reference `lem:translation' on page 7 undefined on input line 27\n4.\n\n\nLaTeX Warning: Reference `eq:residual-form' on page 7 undefined on input line 2\n74.\n\n\nLaTeX Warning: Reference `sec:evaluation' on page 7 undefined on input line 285\n.\n\n\n[7.7]\n\nLaTeX Warning: Reference `fig:cover' on page 8 undefined on input line 301.\n\n\n[8.8] (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)\n[9.9{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}]\n\nLaTeX Warning: Reference `lem:cover' on page 10 undefined on input line 377.\n\n\nLaTeX Warning: Reference `thm:checker' on page 10 undefined on input line 384.\n\n\nLaTeX Warning: Reference `cor:complete' on page 10 undefined on input line 387.\n\n\n\nLaTeX Warning: Reference `sec:barrier' on page 10 undefined on input line 387.\n\n\n[10.10]\n\nLaTeX Warning: Reference `eq:local' on page 11 undefined on input line 447.\n\n\nLaTeX Warning: Reference `lem:modulus' on page 11 undefined on input line 447.\n\n\nLaTeX Warning: Reference `eq:TA' on page 11 undefined on input line 447.\n\n\n[11.11]\n\nLaTeX Warning: Reference `eq:annihilator' on page 12 undefined on input line 48\n1.\n\n\nPackage natbib Warning: Citation `cook1971complexity' on page 12 undefined on i\nnput line 512.\n\n\nLaTeX Warning: Reference `lem:annihilator' on page 12 undefined on input line 5\n14.\n\n\n[12.12]\n\nPackage natbib Warning: Citation `henzinger2021qnn' on page 13 undefined on inp\nut line 536.\n\n\nLaTeX Warning: Reference `thm:fixedhard' on page 13 undefined on input line 536\n.\n\n\nLaTeX Warning: Reference `cor:compact' on page 13 undefined on input line 545.\n\n\nLaTeX Warning: Reference `thm:block' on page 13 undefined on input line 545.\n\n\n[13.13]\n\nLaTeX Warning: Reference `lem:dp' on page 14 undefined on input line 563.\n\n\nPackage natbib Warning: Citation `becker2018floVer' on page 14 undefined on inp\nut line 571.\n\n\nUnderfull \\vbox (badness 10000) has occurred while \\output is active\n[14.14]\n\nLaTeX Warning: Reference `tab:collections' on page 15 undefined on input line 5\n90.\n\n\nLaTeX Warning: Reference `tab:testledger' on page 15 undefined on input line 61\n5.\n\n\n[15.15]\n\nLaTeX Warning: Reference `sec:barrier' on page 16 undefined on input line 620.\n\n\n[16.16]\n\nLaTeX Warning: Reference `tab:frozen' on page 17 undefined on input line 651.\n\n\nLaTeX Warning: Reference `lem:translation' on page 17 undefined on input line 6\n71.\n\n\nLaTeX Warning: Reference `tab:stress' on page 17 undefined on input line 675.\n\n\nLaTeX Warning: Reference `fig:results' on page 17 undefined on input line 696.\n\n\n[17.17]\n\nLaTeX Warning: Reference `tab:closest' on page 18 undefined on input line 745.\n\n\nPackage natbib Warning: Citation `ladner1980parallel' on page 18 undefined on i\nnput line 768.\n\n\nPackage natbib Warning: Citation `blelloch1990prefix' on page 18 undefined on i\nnput line 768.\n\n\nPackage natbib Warning: Citation `martin2018parallel' on page 18 undefined on i\nnput line 768.\n\n\nPackage natbib Warning: Citation `gu2022s4' on page 18 undefined on input line \n768.\n\n\nPackage natbib Warning: Citation `smith2023s5' on page 18 undefined on input li\nne 768.\n\n\nPackage natbib Warning: Citation `gu2024mamba' on page 18 undefined on input li\nne 768.\n\n\nUnderfull \\vbox (badness 7362) has occurred while \\output is active\n[18.18]\n\nPackage natbib Warning: Citation `pnueli1998translation' on page 19 undefined o\nn input line 770.\n\n\nPackage natbib Warning: Citation `necula1997pcc' on page 19 undefined on input \nline 770.\n\n\nPackage natbib Warning: Citation `lopes2021alive2' on page 19 undefined on inpu\nt line 770.\n\n\nPackage natbib Warning: Citation `bang2022mlirtv' on page 19 undefined on input\n line 770.\n\n\nLaTeX Warning: Reference `sec:semantics' on page 19 undefined on input line 770\n.\n\n\nPackage natbib Warning: Citation `cousot1977abstract' on page 19 undefined on i\nnput line 774.\n\n\nPackage natbib Warning: Citation `goubault2011static' on page 19 undefined on i\nnput line 774.\n\n\nPackage natbib Warning: Citation `monniaux2005filters' on page 19 undefined on \ninput line 774.\n\n\nPackage natbib Warning: Citation `darulova2014sound' on page 19 undefined on in\nput line 774.\n\n\nPackage natbib Warning: Citation `darulova2018daisy' on page 19 undefined on in\nput line 774.\n\n\nPackage natbib Warning: Citation `cherubin2020taffo' on page 19 undefined on in\nput line 774.\n\n\nPackage natbib Warning: Citation `solovyev2019fptaylor' on page 19 undefined on\n input line 774.\n\n\nPackage natbib Warning: Citation `das2020satire' on page 19 undefined on input \nline 774.\n\n\nPackage natbib Warning: Citation `titolo2024precisa' on page 19 undefined on in\nput line 774.\n\n\nPackage natbib Warning: Citation `dinechin2011gappa' on page 19 undefined on in\nput line 774.\n\n\nPackage natbib Warning: Citation `becker2018floVer' on page 19 undefined on inp\nut line 774.\n\n\nPackage natbib Warning: Citation `henzinger2021qnn' on page 19 undefined on inp\nut line 780.\n\n\nPackage natbib Warning: Citation `huang2024efficient' on page 19 undefined on i\nnput line 780.\n\n\nPackage natbib Warning: Citation `zhang2023qebverif' on page 19 undefined on in\nput line 780.\n\n\nLaTeX Warning: Reference `thm:fixedhard' on page 19 undefined on input line 782\n.\n\n\nLaTeX Warning: Reference `thm:fivehard' on page 19 undefined on input line 782.\n\n\n\n[19.19]\n\nLaTeX Warning: Reference `eq:reference' on page 20 undefined on input line 786.\n\n\n\nLaTeX Warning: Reference `eq:lowered' on page 20 undefined on input line 786.\n\n\nPackage natbib Warning: Citation `ko2025ssmrdu' on page 20 undefined on input l\nine 786.\n\n\nPackage natbib Warning: Citation `dao2024duality' on page 20 undefined on input\n line 786.\n\n\nPackage natbib Warning: Citation `chiang2025quamba' on page 20 undefined on inp\nut line 788.\n\n\nPackage natbib Warning: Citation `chiang2025quamba2' on page 20 undefined on in\nput line 788.\n\n\nPackage natbib Warning: Citation `kim2026ssdi8' on page 20 undefined on input l\nine 788.\n\n\nLaTeX Warning: Reference `cor:compact' on page 20 undefined on input line 794.\n\n\n[20.20] (./main.bbl\n[21.21])\n\nPackage natbib Warning: There were undefined citations.\n\n\n[22.22]\n\nLaTeX Warning: Hook 'shipout/lastpage' executed on wrong page (1 not 22).\n               Rerun to correct this.\n\n(./main.aux\n\nPackage natbib Warning: Citation(s) may have changed.\n(natbib)                Rerun to get citations correct.\n\n)\n\nLaTeX Warning: There were undefined references.\n\n\nLaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.\n\n\nPackage rerunfilecheck Warning: File `main.out' has changed.\n(rerunfilecheck)                Rerun to get outlines right\n(rerunfilecheck)                or use package `bookmark'.\n\n )\n(see the transcript file for additional information)</usr/share/texlive/texmf-d\nist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/tex\nmf-dist/fonts/type1/public/newtx/LibertineMathMI.pfb></usr/share/texlive/texmf-\ndist/fonts/type1/public/newtx/LibertineMathMI7.pfb></usr/share/texlive/texmf-di\nst/fonts/type1/public/newtx/LibertineMathRM.pfb></usr/share/texlive/texmf-dist/\nfonts/type1/public/libertine/LinBiolinumT.pfb></usr/share/texlive/texmf-dist/fo\nnts/type1/public/libertine/LinBiolinumTB.pfb></usr/share/texlive/texmf-dist/fon\nts/type1/public/libertine/LinLibertineT.pfb></usr/share/texlive/texmf-dist/font\ns/type1/public/libertine/LinLibertineTB.pfb></usr/share/texlive/texmf-dist/font\ns/type1/public/libertine/LinLibertineTI.pfb></usr/share/texlive/texmf-dist/font\ns/type1/public/libertine/LinLibertineTZ.pfb></usr/share/texlive/texmf-dist/font\ns/type1/public/newtx/NewTXMI.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub\nlic/newtx/NewTXMI7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/\ntxexs.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></\nusr/share/texlive/texmf-dist/fonts/type1/public/newtx/txsym.pfb></usr/share/tex\nlive/texmf-dist/fonts/type1/public/newtx/txsys.pfb>\nOutput written on main.pdf (22 pages, 586558 bytes).\nTranscript written on main.log.\nLatexmk: Getting log file 'main.log'\nLatexmk: Examining 'main.fls'\nLatexmk: Examining 'main.log'\nLatexmk: Found input bbl file 'main.bbl'\nLatexmk: References changed.\nLatexmk: References changed.\nLatexmk: References changed.\nLatexmk: Log file says output to 'main.pdf'\nLatexmk: Found bibliography file(s):\n  ./references.bib\nLatexmk: applying rule 'bibtex main'...\nRule 'bibtex main':  Reasons for rerun\nCategory 'other':\n  Rerun of 'bibtex main' forced or previously required:\n    Reason or flag: 'Initial set up of rule'\n\n------------\nRun number 1 of rule 'bibtex main'\n------------\n------------\nRunning 'bibtex  \"main.aux\"'\n------------\nsh: 1: bibtex: not found\nLatexmk: Summary of warnings from last run of *latex:\n  Latex failed to resolve 58 reference(s)\n  Latex failed to resolve 35 citation(s)\nLatexmk: ====Undefined refs and citations with line #s in .tex file:\n  Citation `ko2025ssmrdu' on page 1 undefined on input line 48\n  Citation `dao2024duality' on page 1 undefined on input line 48\n  Citation `zhang2023qebverif' on page 1 undefined on input line 50\n  Reference `sec:semantics' on page 2 undefined on input line 67\n  Reference `sec:paired' on page 2 undefined on input line 67\n  Reference `sec:certificates' on page 2 undefined on input line 67\n  Reference `sec:composition' on page 2 undefined on input line 67\n And 86 more --- see log file 'main.log'\nLatexmk: Errors, so I did not complete making targets\nCollected error summary (may duplicate other messages):\n  bibtex main: Could not open bibtex log file for 'main'\n\nLatexmk: Sometimes, the -f option can be used to get latexmk\n  to try to force complete processing.\n  But normally, you will need to correct the file(s) that caused the\n  error, and then rerun latexmk.\n  In some cases, it is best to clean out generated files before rerunning\n  latexmk after you've corrected the files.\n"
+    },
+    "qpdf": {
+      "rc": null,
+      "note": "qpdf unavailable"
+    }
+  },
+  "findings": [
+    "LaTeX build failed",
+    "References heading not found",
+    "undefined refs/citations in log",
+    "placeholder text in PDF"
+  ],
+  "main_tex": "paper/main.tex",
+  "documentclass": [
+    [
+      "acmsmall,screen,review,anonymous",
+      "acmart"
+    ]
+  ],
+  "labels": [
+    "cor:compact",
+    "cor:complete",
+    "def:paired",
+    "eq:TA",
+    "eq:annihilator",
+    "eq:floor",
+    "eq:local",
+    "eq:lowered",
+    "eq:quantizer",
+    "eq:reference",
+    "eq:residual-form",
+    "eq:rne",
+    "eq:summary-bias",
+    "eq:summary-matrix",
+    "fig:annihilator",
+    "fig:cover",
+    "fig:results",
+    "fig:semantics",
+    "lem:annihilator",
+    "lem:cover",
+    "lem:dp",
+    "lem:modulus",
+    "lem:translation",
+    "sec:barrier",
+    "sec:certificates",
+    "sec:comparison",
+    "sec:composition",
+    "sec:evaluation",
+    "sec:implementation",
+    "sec:paired",
+    "sec:related",
+    "sec:running",
+    "sec:schema",
+    "sec:semantics",
+    "tab:closest",
+    "tab:collections",
+    "tab:declaration",
+    "tab:frozen",
+    "tab:running",
+    "tab:schema",
+    "tab:stress",
+    "tab:testledger",
+    "thm:block",
+    "thm:checker",
+    "thm:fivehard",
+    "thm:fixedhard",
+    "thm:paired",
+    "thm:temporal"
+  ],
+  "refs": [
+    "cor:compact",
+    "cor:complete",
+    "def:paired",
+    "eq:TA",
+    "eq:annihilator",
+    "eq:floor",
+    "eq:local",
+    "eq:lowered",
+    "eq:reference",
+    "eq:residual-form",
+    "eq:rne",
+    "eq:summary-bias",
+    "eq:summary-matrix",
+    "fig:cover",
+    "fig:results",
+    "fig:semantics",
+    "lem:annihilator",
+    "lem:cover",
+    "lem:dp",
+    "lem:modulus",
+    "lem:translation",
+    "sec:barrier",
+    "sec:certificates",
+    "sec:composition",
+    "sec:evaluation",
+    "sec:implementation",
+    "sec:paired",
+    "sec:related",
+    "sec:semantics",
+    "tab:closest",
+    "tab:collections",
+    "tab:declaration",
+    "tab:frozen",
+    "tab:running",
+    "tab:stress",
+    "tab:testledger",
+    "thm:block",
+    "thm:checker",
+    "thm:fivehard",
+    "thm:fixedhard"
+  ],
+  "undefined_source_refs": [],
+  "duplicate_labels": [],
+  "source_pattern_hits": {
+    "email": [],
+    "acknowledgments": [],
+    "placeholder": [
+      "placeholder"
+    ],
+    "absolute_local_path": [],
+    "draft_note": []
+  },
+  "claim_risk_contexts": [
+    {
+      "term": "first",
+      "context": "and composition rules for incoming-carry errors and independent state blocks. Accepted violation certificates establish both the earliest failing output and the lexicographically first input prefix. A two-register construction shows that a two-step summary can annihilate a Boolean value preserved by sequential execution without active saturation. Consequently, universal bit-exact equivalence is coNP-c"
+    },
+    {
+      "term": "first",
+      "context": "s, chunk boundaries, and prefix association trees. If a contract fails, a short diagnostic input is preferable to an arbitrary full-horizon assignment. We therefore order failures first by output time and then by the signed, time-major input prefix. Replaying one witness proves neither that every earlier output is safe nor that every earlier input at the selected output is safe. There is also a princi"
+    },
+    {
+      "term": "first",
+      "context": "output is safe. There is also a principled limit to a universal compact-certificate promise. Consider a Boolean state code $x\\in\\{0,1\\}$ and scratch coordinate $s$. At scale two, first retain $x$ and set $s$ to the rounded value of $x/2$; then replace $x$ by $x-2s$. Under floor and nearest-even rounding, sequential execution preserves $x$. Yet composing the two stored affine matrices cancels the outpu"
+    },
+    {
+      "term": "first",
+      "context": "ion paradigm. \\item We give an ordered-cover certificate and checker contract. Accepted covers prove every-output safety or prove the earliest failing output and lexicographically first violating prefix. Without resource cutoffs, canonical subdivision is complete for finite boxes. \\item We prove two composition rules: a carry-aware temporal error recurrence using an exact integer rounding modulus, and"
+    },
+    {
+      "term": "first",
+      "context": "here is only one binary tree, and quantized composition has already removed the state coefficient: the summary maps every incoming carry to $-3$. At length three, left composition first materializes that rounded two-step bias and then composes the third transfer, producing $(0,-4)$. Right and balanced composition first combine the final two transfers, producing $(0,-3)$ after the outer composition. The"
+    },
+    {
+      "term": "first",
+      "context": "y to $-3$. At length three, left composition first materializes that rounded two-step bias and then composes the third transfer, producing $(0,-4)$. Right and balanced composition first combine the final two transfers, producing $(0,-3)$ after the outer composition. The exact affine maps before summary quantization would agree; the stored summaries do not. The example also exposes a tempting but incor"
+    },
+    {
+      "term": "first",
+      "context": "y coordinate tolerance $\\tau_{ti}$ & fixes the accepted output-wise error relation\\\\ Witness order & time-major, coordinate-major signed-code order & fixes what ``earliest'' and ``first'' mean\\\\ \\bottomrule \\end{tabular} \\end{table} \\subsection{Every-output contracts and ordered violations} Let $\\tau_{ti}\\ge0$ be the declared tolerance at time $t$ and coordinate $i$. \\begin{definition}[Every-output"
+    },
+    {
+      "term": "first",
+      "context": "or a violation at time $t$, flatten the prefix $(b_1,\\ldots,b_t)$ in time-major, then coordinate-major order. We compare signed integer codes in their ordinary order. The globally first violation is the minimum time with any violation, followed by the lexicographically least violating prefix at that time. Inputs after $t$ are irrelevant and are excluded from the witness. Two sanity checks distinguish"
+    },
+    {
+      "term": "first",
+      "context": "he lexicographically least violating prefix at that time. Inputs after $t$ are irrelevant and are excluded from the witness. Two sanity checks distinguish the intended semantics. First, with $q=2$, floor and nearest-even disagree at ties and at negative half-integers, so a host language's default division or rounding cannot silently stand in for~\\eqref{eq:floor}--\\eqref{eq:rne}. Second, different pref"
+    },
+    {
+      "term": "first",
+      "context": "to syntactic is attributable to exact reuse; and a further reduction to modular sharing is attributable to the translation identity. Section~\\ref{sec:evaluation} reports that the first mechanism matters strongly on the frozen suite, while the latter two do not change final cover topology there. \\section{Certificates for Safety and Ordered Violations}\\label{sec:certificates} A producer result is not"
+    },
+    {
+      "term": "first",
+      "context": "to lie within the tolerance. \\item[Witness leaf.] The box must be a singleton. The checker replays both executions and verifies a violation. \\item[Split.] The checker requires the first nonsingleton coordinate, a legal cut, and a lower left child. The right child is required only if the left subtree is safe. Left is checked before right. \\end{description} The first-nonsingleton rule makes all points i"
+    },
+    {
+      "term": "first",
+      "context": "st nonsingleton coordinate, a legal cut, and a lower left child. The right child is required only if the left subtree is safe. Left is checked before right. \\end{description} The first-nonsingleton rule makes all points in a left child precede all points in its right sibling. Omitting a right subtree after a left witness is therefore not missing coverage: no point in the right subtree can improve the"
+    },
+    {
+      "term": "first",
+      "context": "10mm, sibling distance=29mm, node/.style={draw,rounded corners=1pt,align=center,inner sep=2pt,minimum width=19mm}, edge from parent/.style={draw,-Latex}] \\node[node] {$B$\\\\split first varying $x_1$} child {node[node] {$x_1\\!\\le c$\\\\safe exact range}} child {node[node] {$x_1\\!>c$\\\\split first varying $x_2$} child {node[node] {$x_2\\!\\le d$\\\\safe exact range}} child {node[node] {singleton $x^*$\\"
+    },
+    {
+      "term": "first",
+      "context": "mm}, edge from parent/.style={draw,-Latex}] \\node[node] {$B$\\\\split first varying $x_1$} child {node[node] {$x_1\\!\\le c$\\\\safe exact range}} child {node[node] {$x_1\\!>c$\\\\split first varying $x_2$} child {node[node] {$x_2\\!\\le d$\\\\safe exact range}} child {node[node] {singleton $x^*$\\\\replay violates}} }; \\node[below=5mm of current bounding box.south,align=center,font=\\footnotesize] {Left-bef"
+    },
+    {
+      "term": "first",
+      "context": "$x^*$\\\\replay violates}} }; \\node[below=5mm of current bounding box.south,align=center,font=\\footnotesize] {Left-before-right traversal plus exact leaves proves that $x^*$ is the first violating point in $B$.}; \\end{tikzpicture} \\caption{Canonical ordered cover. A violation certificate includes safe coverage of every earlier output and every lexicographically earlier prefix at the failing output.} \\la"
+    },
+    {
+      "term": "first",
+      "context": "ked obligation\\\\ \\midrule Header & complete instance parses canonically; status and root count match the claimed conclusion\\\\ Output root & output indices are consecutive from the first output through $N$ or the claimed first failure\\\\ Safe leaf & supplied box matches traversal; exact range is contained in the supplied range; supplied range satisfies tolerance\\\\ Witness leaf & box is a singleton; repla"
+    },
+    {
+      "term": "first",
+      "context": "ete instance parses canonically; status and root count match the claimed conclusion\\\\ Output root & output indices are consecutive from the first output through $N$ or the claimed first failure\\\\ Safe leaf & supplied box matches traversal; exact range is contained in the supplied range; supplied range satisfies tolerance\\\\ Witness leaf & box is a singleton; replayed difference equals the claim and exce"
+    },
+    {
+      "term": "first",
+      "context": "supplied range; supplied range satisfies tolerance\\\\ Witness leaf & box is a singleton; replayed difference equals the claim and exceeds a tolerance\\\\ Split node & split uses the first nonsingleton coordinate, an interior cut, exact child boxes, and left-before-right control flow\\\\ Violation metadata & all earlier roots are safe; final root returns the same earliest time and flattened prefix\\\\ \\bottom"
+    },
+    {
+      "term": "first",
+      "context": "lay establishes the only point as violating. At a split, the required coordinate and cut partition $B$ and every left point precedes every right point. A left witness is therefore first and makes a right child unnecessary. If the left is safe, induction gives the first right witness or proves both children safe. \\end{proof} \\begin{theorem}[Checker contract]\\label{thm:checker} An accepted safe certific"
+    },
+    {
+      "term": "first",
+      "context": "cut partition $B$ and every left point precedes every right point. A left witness is therefore first and makes a right child unnecessary. If the left is safe, induction gives the first right witness or proves both children safe. \\end{proof} \\begin{theorem}[Checker contract]\\label{thm:checker} An accepted safe certificate proves every-output safety. An accepted violation certificate proves its output"
+    },
+    {
+      "term": "first",
+      "context": "An accepted safe certificate proves every-output safety. An accepted violation certificate proves its output is the earliest failing output and its input is the lexicographically first violating prefix at that output. \\end{theorem} \\begin{proof} The checker requires consecutive roots starting from the first output. Apply Lemma~\\ref{lem:cover} to every root. In a safe certificate, all roots are safe. I"
+    },
+    {
+      "term": "first",
+      "context": "t failing output and its input is the lexicographically first violating prefix at that output. \\end{theorem} \\begin{proof} The checker requires consecutive roots starting from the first output. Apply Lemma~\\ref{lem:cover} to every root. In a safe certificate, all roots are safe. In a violation certificate, all preceding roots are safe and the final root supplies its first witness. The embedded instance"
+    },
+    {
+      "term": "first",
+      "context": "put. Apply Lemma~\\ref{lem:cover} to every root. In a safe certificate, all roots are safe. In a violation certificate, all preceding roots are safe and the final root supplies its first witness. The embedded instance, root count, earliest-output field, and top-level witness are recomputed or cross-checked rather than trusted. \\end{proof} \\begin{corollary}[Finite completeness without cutoffs]\\label{cor"
+    },
+    {
+      "term": "first",
+      "context": "s}\\label{sec:composition} Ordered covers can establish a full bounded instance directly. Two exact rules also let smaller obligations compose when their side conditions hold. The first transports incoming-carry error across chunks. The second decomposes common block-diagonal state structure. They address different sources of scale and should not be conflated. \\subsection{Exact integer rounding modulu"
+    },
+    {
+      "term": "first",
+      "context": ",p}(\\widehat c,u)-F_{j,p}(c,u)| &\\le |G_{j,p}(\\widehat c,u)-F_{j,p}(\\widehat c,u)|\\\\ &\\quad+|F_{j,p}(\\widehat c,u)-F_{j,p}(c,u)|. \\end{align*} Equation~\\eqref{eq:local} bounds the first term. At one sequential step, a numerator difference in row $i$ is at most $\\sum_k|A_{ik}|v_k$; Lemma~\\ref{lem:modulus} and clipping nonexpansiveness yield~\\eqref{eq:TA}. Iterating gives $\\Phi_{j,p}(E_{j-1})$. Both stor"
+    },
+    {
+      "term": "first",
+      "context": "executions. The full instance is safe iff every projected block is safe. If blocks fail, the earliest full failure time is the minimum block failure time. At that time, lift each first block witness by filling all other input coordinates with their box minima; the lexicographically least candidate is the first full-instance violating prefix. \\end{theorem} \\begin{proof} A sequential row reads no state"
+    },
+    {
+      "term": "first",
+      "context": "minimum block failure time. At that time, lift each first block witness by filling all other input coordinates with their box minima; the lexicographically least candidate is the first full-instance violating prefix. \\end{theorem} \\begin{proof} A sequential row reads no state outside its block. Products of matrices with the common block pattern have zero cross-block entries, and $\\Q(0)=0$, so quantize"
+    },
+    {
+      "term": "first",
+      "context": "rliest time. A lifted block witness remains legal and violating. For any full violation at the minimum time, project to a failing block. Its projection cannot precede that block's first witness. Filling outside coordinates with minima produces a full point no later than the original; minimizing over failing blocks establishes global lexicographic minimality. \\end{proof} The Cartesian-domain condition"
+    },
+    {
+      "term": "first",
+      "context": "$(x,s)$ and the zero-bias matrices \\begin{equation} A=\\begin{pmatrix}2&0\\\\1&0\\end{pmatrix},\\qquad C=\\begin{pmatrix}2&-4\\\\0&2\\end{pmatrix}.\\label{eq:annihilator} \\end{equation} The first step preserves $x$ and stores $s=\\R_2(x)$. The second computes $x'=\\R_2(2x-4s)$. \\begin{lemma}[Boolean annihilator]\\label{lem:annihilator} For $x\\in\\{0,1\\}$ and $s=0$, sequential execution of~\\eqref{eq:annihilator} yie"
+    },
+    {
+      "term": "first",
+      "context": "even control\\\\ Cross-path prefixes & 45,072 & producer-path versus separately written checker arithmetic\\\\ Independent oracle prefixes & 45,072 & direct exhaustive differences and first-witness order\\\\ Whole-box enclosures & 1,920 & paired range containment over complete small boxes\\\\ Scalar association DP & 48 & left, right, and balanced DP versus enumeration\\\\ Block composition & 4,918 & exact factor"
+    },
+    {
+      "term": "first",
+      "context": "fies 33 cases safe and 39 violated. All five methods agree on every status. For each violation, the cover methods agree with the exact earliest time and complete lexicographically first prefix. All 288 cover certificates pass the checker. Table~\\ref{tab:frozen} separates proof topology from implementation cost. Independent intervals create 24,774 nodes, while every paired policy creates 3,260, a 7.60$"
+    },
+    {
+      "term": "first",
+      "context": "n between two fixed-point executions linked by a quantized scan-summary construction. The certificate also binds association trees and proves earliest-output and lexicographically first-prefix obligations. The temporal theorem uses an exact integer modulus at rounding thresholds rather than a conventional real-gain bound. \\subsection{Verification of quantized computation} Henzinger, Lechner, and {\\v{"
+    },
+    {
+      "term": "first",
+      "context": "cution, or hardware faults. \\section{Conclusion} Finite-precision chunked-scan correctness relates two explicitly rounded executions. Ordered covers make every-output safety and first-violation minimality independently checkable; carry-aware and block-factorization theorems give exact composition rules. Restricted constructions show coNP-complete universal equivalence without active saturation. On 72"
+    },
+    {
+      "term": "novel",
+      "context": "nd to have a claim-specific role and recorded metadata/content check. This closes the shipped draft against missing, duplicate, or placeholder references; it is not a bibliometric novelty claim, external peer review, or a guarantee that later literature will not change the priority analysis. The trusted base of an accepted cover includes the checker source, Python integer/rational arithmetic, JSON par"
+    },
+    {
+      "term": "guarantee",
+      "context": "d direct-interval difference ranges contains the concrete difference, so their intersection does too. \\end{proof} The theorem is a soundness result, not a general polynomial-time guarantee. A modular residue set may contain $M$ elements when the binary-encoded scale is unbounded. The frozen experiments use scales at most eight, and both complexity constructions use $q=2$. \\subsection{Why three residual p"
+    },
+    {
+      "term": "guarantee",
+      "context": "NP $\\subseteq$ NP, and taking complements gives the reverse inclusion. \\end{proof} Corollary~\\ref{cor:compact} concerns every safe instance and any certificate language with both guarantees. It is not an unconditional exponential lower bound for ordered covers. Small certificates for restricted structures or selected practical instances remain possible; Theorem~\\ref{thm:block} identifies one exact structu"
+    },
+    {
+      "term": "guarantee",
+      "context": "ded metadata/content check. This closes the shipped draft against missing, duplicate, or placeholder references; it is not a bibliometric novelty claim, external peer review, or a guarantee that later literature will not change the priority analysis. The trusted base of an accepted cover includes the checker source, Python integer/rational arithmetic, JSON parsing, and the execution environment. This is l"
+    },
+    {
+      "term": "formal verification",
+      "context": "reter or concrete arithmetic. Both paths were nevertheless produced and reviewed within one research process, so this separation is not independent authorship, external review, or formal verification. For output time $t$, the producer reconstructs both traces through that prefix. The checker reconstructs the reference and the lowered chunk boundaries needed to reach $t$, then recomputes the selected prefix from the"
+    },
+    {
+      "term": "proof assistant",
+      "context": "e}, PRECiSA supports formal roundoff analysis~\\cite{titolo2024precisa}, Gappa generates checkable obligations~\\cite{dinechin2011gappa}, and FloVer verifies certificate checking in proof assistants~\\cite{becker2018floVer}. Our paired transformer belongs to this established family; neither affine arithmetic nor residual variables are claimed as new. The different object is a relation between two fixed-point execu"
+    },
+    {
+      "term": "never",
+      "context": "omposing the two stored affine matrices cancels the output row, so the quantized summary produces zero. This is a rounding-only effect: signed three-bit words suffice and clipping never changes a value. Embedding Boolean gates before this final chunk makes the numerical difference encode satisfiability even though both executions agree at every preceding output. We develop four connected results aroun"
+    },
+    {
+      "term": "never",
+      "context": "roduce an illegal full point even though the state equations factor. \\section{A Rounding-Only Complexity Barrier}\\label{sec:barrier} We now ask whether every safe instance might nevertheless have a universally compact certificate. The answer is constrained even in narrow fragments. Instances are explicitly encoded by dimension, horizon, width, scale, matrices, boxes, trees, and tolerances. A violatin"
+    },
+    {
+      "term": "never",
+      "context": "s zero and the reference is the circuit value. With zero tolerances, the instance is safe exactly when the circuit is false on every assignment. The construction is polynomial and never clips. \\end{proof} This restriction is intentionally strong in one direction and weak in another: word width and chunk length are fixed, while dimension and horizon grow. It shows that the difficulty is not caused by l"
+    },
+    {
+      "term": "never",
+      "context": "ons with numbered atoms, its own rounding routine, and its own concrete interpreter. It does not import the producer's abstract interpreter or concrete arithmetic. Both paths were nevertheless produced and reviewed within one research process, so this separation is not independent authorship, external review, or formal verification. For output time $t$, the producer reconstructs both traces through th"
+    },
+    {
+      "term": "never",
+      "context": "nd its quantized version and combines abstract bounds with exact reasoning~\\cite{zhang2023qebverif}, the closest methodological precedent for our paired analysis. The boundary is nevertheless material. A scan lowering changes rounding placement and association inside affine transfer composition; both sides are finite, every prefix is observable, and witness order is part of acceptance. Theorem~\\ref{th"
+    },
+    {
+      "term": "scalable",
+      "context": "ger modulus at rounding thresholds rather than a conventional real-gain bound. \\subsection{Verification of quantized computation} Henzinger, Lechner, and {\\v{Z}}ikeli{\\'c} study scalable verification and complexity for quantized neural networks~\\cite{henzinger2021qnn}; later work improves QNN verification procedures~\\cite{huang2024efficient}. QEBVerif propagates the difference between a network and its"
+    },
+    {
+      "term": "deployment",
+      "context": "ions. Sections~\\ref{sec:implementation} and~\\ref{sec:evaluation} describe the trusted boundary and evidence. Section~\\ref{sec:related} positions the result and states the excluded deployment claims. \\section{Which Finite Computations Are Compared?}\\label{sec:semantics} \\subsection{Words, rounding, and one affine update} All state values, coefficients, and input biases are stored integer codes. A width $w"
+    },
+    {
+      "term": "deployment",
+      "context": "nterface, two composition rules, and the two restricted rounding-only hardness constructions; the cited systems supply foundations and boundary tests, not inherited correctness or deployment evidence. \\subsection{Scans, translation validation, and proof-carrying evidence} Parallel prefix computation has classical depth/work constructions~\\cite{ladner1980parallel}; Blelloch presents scan as a general algor"
+    },
+    {
+      "term": "hardware speedup",
+      "context": "the campaign used one worker. The archive records worker CPU/wall time, process time, peak RSS, nodes, and bytes. These are implementation observations, not end-to-end latency or hardware speedup. Table~\\ref{tab:collections} records the design axes that determine what the two collections can test. The frozen suite is an exhaustive semantic conformance collection over small boxes; the stress suite is a resource-b"
+    },
+    {
+      "term": "training",
+      "context": "t coordinate has three codes. Some boxes lie near the negative word endpoint to exercise saturation. All 72 cases are retained, including 39 violations. There is no learned model, training split, or tuning against frozen outcomes. Four cover methods---independent intervals, fresh residuals, syntactic sharing, and modular sharing---receive 5,000 nodes and 20 internal seconds per frozen case. Exact DP rece"
+    },
+    {
+      "term": "training",
+      "context": "chunk and cross-chunk decomposition~\\cite{dao2024duality}; our $\\star$ operator is a declared validation semantics, not a reproduction of that implementation. Quamba gives a post-training quantization recipe and perturbation analysis for selective SSMs~\\cite{chiang2025quamba}; Quamba2 extends this line across several low-bit configurations~\\cite{chiang2025quamba2}. SSDi8 studies 8-bit quantization for st"
+    }
+  ],
+  "pdfinfo": {
+    "Title": "Compositional Rounding Certificates for Chunked Affine Scans",
+    "Subject": "-  Software and its engineering  ->  Software verification and validation.",
+    "Creator": "LaTeX with acmart 2026/08/16 v2.20 Typesetting articles for the Association for Computing Machinery and hyperref 2024-11-05 v7.01l Hypertext links for LaTeX",
+    "Producer": "pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) kpathsea version 6.4.0/dev",
+    "CreationDate": "Mon Sep 21 19:52:45 2026 UTC",
+    "ModDate": "Mon Sep 21 19:52:45 2026 UTC",
+    "Custom Metadata": "yes",
+    "Metadata Stream": "yes",
+    "Tagged": "no",
+    "UserProperties": "no",
+    "Suspects": "no",
+    "Form": "none",
+    "JavaScript": "no",
+    "Pages": "22",
+    "Encrypted": "no",
+    "Page size": "486 x 720 pts",
+    "Page rot": "0",
+    "File size": "586558 bytes",
+    "Optimized": "no",
+    "PDF version": "1.7"
+  },
+  "references_heading_pages": [],
+  "log_warnings": {
+    "undefined_references": [
+      "LaTeX Warning: Reference `sec:semantics' on page 2 undefined",
+      "LaTeX Warning: Reference `sec:paired' on page 2 undefined",
+      "LaTeX Warning: Reference `sec:certificates' on page 2 undefined",
+      "LaTeX Warning: Reference `sec:composition' on page 2 undefined",
+      "LaTeX Warning: Reference `sec:barrier' on page 2 undefined",
+      "LaTeX Warning: Reference `sec:implementation' on page 2 undefined",
+      "LaTeX Warning: Reference `sec:evaluation' on page 2 undefined",
+      "LaTeX Warning: Reference `sec:related' on page 2 undefined",
+      "LaTeX Warning: Reference `eq:rne' on page 3 undefined",
+      "LaTeX Warning: Reference `eq:reference' on page 3 undefined",
+      "LaTeX Warning: Reference `fig:semantics' on page 3 undefined",
+      "LaTeX Warning: Reference `tab:running' on page 4 undefined",
+      "LaTeX Warning: Reference `eq:lowered' on page 4 undefined",
+      "LaTeX Warning: Reference `sec:implementation' on page 4 undefined",
+      "LaTeX Warning: Reference `tab:declaration' on page 5 undefined",
+      "LaTeX Warning: Reference `eq:floor' on page 5 undefined",
+      "LaTeX Warning: Reference `eq:rne' on page 5 undefined",
+      "LaTeX Warning: Reference `eq:summary-matrix' on page 5 undefined",
+      "LaTeX Warning: Reference `eq:summary-bias' on page 5 undefined",
+      "LaTeX Warning: Reference `lem:translation' on page 6 undefined",
+      "LaTeX Warning: Reference `lem:translation' on page 6 undefined",
+      "LaTeX Warning: Reference `def:paired' on page 6 undefined",
+      "LaTeX Warning: Reference `lem:translation' on page 7 undefined",
+      "LaTeX Warning: Reference `eq:residual-form' on page 7 undefined",
+      "LaTeX Warning: Reference `sec:evaluation' on page 7 undefined",
+      "LaTeX Warning: Reference `fig:cover' on page 8 undefined",
+      "LaTeX Warning: Reference `lem:cover' on page 10 undefined",
+      "LaTeX Warning: Reference `thm:checker' on page 10 undefined",
+      "LaTeX Warning: Reference `cor:complete' on page 10 undefined",
+      "LaTeX Warning: Reference `sec:barrier' on page 10 undefined",
+      "LaTeX Warning: Reference `eq:local' on page 11 undefined",
+      "LaTeX Warning: Reference `lem:modulus' on page 11 undefined",
+      "LaTeX Warning: Reference `eq:TA' on page 11 undefined",
+      "LaTeX Warning: Reference `eq:annihilator' on page 12 undefined",
+      "LaTeX Warning: Reference `lem:annihilator' on page 12 undefined",
+      "LaTeX Warning: Reference `thm:fixedhard' on page 13 undefined",
+      "LaTeX Warning: Reference `cor:compact' on page 13 undefined",
+      "LaTeX Warning: Reference `thm:block' on page 13 undefined",
+      "LaTeX Warning: Reference `lem:dp' on page 14 undefined",
+      "LaTeX Warning: Reference `tab:collections' on page 15 undefined",
+      "LaTeX Warning: Reference `tab:testledger' on page 15 undefined",
+      "LaTeX Warning: Reference `sec:barrier' on page 16 undefined",
+      "LaTeX Warning: Reference `tab:frozen' on page 17 undefined",
+      "LaTeX Warning: Reference `lem:translation' on page 17 undefined",
+      "LaTeX Warning: Reference `tab:stress' on page 17 undefined",
+      "LaTeX Warning: Reference `fig:results' on page 17 undefined",
+      "LaTeX Warning: Reference `tab:closest' on page 18 undefined",
+      "LaTeX Warning: Reference `sec:semantics' on page 19 undefined",
+      "LaTeX Warning: Reference `thm:fixedhard' on page 19 undefined",
+      "LaTeX Warning: Reference `thm:fivehard' on page 19 undefined",
+      "LaTeX Warning: Reference `eq:reference' on page 20 undefined",
+      "LaTeX Warning: Reference `eq:lowered' on page 20 undefined",
+      "LaTeX Warning: Reference `cor:compact' on page 20 undefined"
+    ],
+    "undefined_citations": [
+      "Citation `ko2025ssmrdu' on page 1 undefined",
+      "Citation `dao2024duality' on page 1 undefined",
+      "Citation `zhang2023qebverif' on page 1 undefined",
+      "Citation `cook1971complexity' on page 12 undefined",
+      "Citation `henzinger2021qnn' on page 13 undefined",
+      "Citation `becker2018floVer' on page 14 undefined",
+      "Citation `ladner1980parallel' on page 18 undefined",
+      "Citation `blelloch1990prefix' on page 18 undefined",
+      "Citation `martin2018parallel' on page 18 undefined",
+      "Citation `gu2022s4' on page 18 undefined",
+      "Citation `smith2023s5' on page 18 undefined",
+      "Citation `gu2024mamba' on page 18 undefined",
+      "Citation `pnueli1998translation' on page 19 undefined",
+      "Citation `necula1997pcc' on page 19 undefined",
+      "Citation `lopes2021alive2' on page 19 undefined",
+      "Citation `bang2022mlirtv' on page 19 undefined",
+      "Citation `cousot1977abstract' on page 19 undefined",
+      "Citation `goubault2011static' on page 19 undefined",
+      "Citation `monniaux2005filters' on page 19 undefined",
+      "Citation `darulova2014sound' on page 19 undefined",
+      "Citation `darulova2018daisy' on page 19 undefined",
+      "Citation `cherubin2020taffo' on page 19 undefined",
+      "Citation `solovyev2019fptaylor' on page 19 undefined",
+      "Citation `das2020satire' on page 19 undefined",
+      "Citation `titolo2024precisa' on page 19 undefined",
+      "Citation `dinechin2011gappa' on page 19 undefined",
+      "Citation `becker2018floVer' on page 19 undefined",
+      "Citation `henzinger2021qnn' on page 19 undefined",
+      "Citation `huang2024efficient' on page 19 undefined",
+      "Citation `zhang2023qebverif' on page 19 undefined",
+      "Citation `ko2025ssmrdu' on page 20 undefined",
+      "Citation `dao2024duality' on page 20 undefined",
+      "Citation `chiang2025quamba' on page 20 undefined",
+      "Citation `chiang2025quamba2' on page 20 undefined",
+      "Citation `kim2026ssdi8' on page 20 undefined",
+      "There were undefined citations"
+    ],
+    "overfull": [],
+    "underfull": [],
+    "rerun": [
+      "LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right."
+    ]
+  },
+  "fonts": {
+    "raw": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nSBJDCF+LinLibertineT                 Type 1            Custom           yes yes yes     14  0\nFJFNOR+LinBiolinumTB                 Type 1            Custom           yes yes yes     16  0\nYCJMOY+LinBiolinumT                  Type 1            Custom           yes yes yes     17  0\nSBJDCF+LinLibertineT                 Type 1            Custom           yes yes yes     19  0\nGCJDOE+LinLibertineTB                Type 1            Custom           yes yes yes     20  0\nUPPWVJ+txsys                         Type 1            Builtin          yes yes yes     21  0\nEHGPHL+LibertineMathMI               Type 1            Builtin          yes yes yes     28  0\nSBJDCF+LinLibertineT                 Type 1            Custom           yes yes yes     29  0\nPPKSGE+txmiaX                        Type 1            Builtin          yes yes yes     36  0\nSGPHYT+LibertineMathMI7              Type 1            Builtin          yes yes yes     37  0\nRFNONQ+txsym                         Type 1            Builtin          yes yes yes     38  0\nNMJGTY+NewTXMI                       Type 1            Builtin          yes yes yes     39  0\nXNLULQ+LinLibertineTZ                Type 1            Custom           yes yes yes     45  0\nEYZKTK+txexs                         Type 1            Builtin          yes yes yes     48  0\nKZQHMA+NewTXMI7                      Type 1            Builtin          yes yes yes     59  0\nQXMKEM+LinLibertineTI                Type 1            Custom           yes yes yes     69  0\nSBJDCF+LinLibertineT                 Type 1            Custom           yes yes yes     77  0\nVGJFSQ+Inconsolatazi4-Regular        Type 1            Custom           yes yes yes    103  0\nTVIQKA+LibertineMathRM               Type 1            Builtin          yes yes yes    116  0\n",
+    "potential_not_embedded": []
+  },
+  "visual_page_metrics": [
+    {
+      "page": 1,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        140,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        140,
+        75,
+        63
+      ],
+      "ink_samples": 32519,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 2,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 32221,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 3,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 18842,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 4,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 20542,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 5,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 25494,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 6,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 26976,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 7,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 28916,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 8,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 25217,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 9,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 25500,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 10,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 23919,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 11,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 26886,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 12,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 23333,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 13,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 29153,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 14,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 32657,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 15,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 34020,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 16,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        732,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        77,
+        63
+      ],
+      "ink_samples": 22399,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 17,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 23775,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 18,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 19844,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 19,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 29307,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 20,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 31788,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 21,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        102,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        102,
+        75,
+        63
+      ],
+      "ink_samples": 34542,
+      "blank": false,
+      "edge_risk": false
+    },
+    {
+      "page": 22,
+      "size": [
+        810,
+        1200
+      ],
+      "bbox": [
+        34,
+        104,
+        734,
+        1136
+      ],
+      "margins": [
+        34,
+        104,
+        75,
+        63
+      ],
+      "ink_samples": 17784,
+      "blank": false,
+      "edge_risk": false
+    }
+  ],
+  "pdf_text_checks": {
+    "author_metadata_blank": true,
+    "emails": [],
+    "placeholder_hits": [
+      "placeholder"
+    ],
+    "anonymous_word_count": 1
+  },
+  "claim_evidence_ledger": {
+    "files": [
+      "artifact/claim_evidence_ledger.csv"
+    ],
+    "rows": 16,
+    "columns": [
+      "claim_id",
+      "paper_claim",
+      "maturity",
+      "theorem_or_lemma",
+      "proof_or_checker",
+      "source_or_test",
+      "experiment_or_raw_result",
+      "figure_or_table",
+      "fresh_recheck",
+      "limitations"
+    ],
+    "missing_evidence_paths": []
+  },
+  "gate": "FAIL"
+}

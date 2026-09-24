@@ -1,0 +1,12 @@
+Concern,Acceptance criterion,Evidence,Pass
+Reference quantity,At least 30 relevant entries; count alone is not sufficient,reference-integrity-audit.csv and reviewer-reference-report.md,False
+Reference authenticity,"Unique DOI/stable record, metadata and version status",reference-integrity-audit.csv,False
+Correct in-text use,No undefined/uncited keys; citation contexts recorded,reference-integrity-audit.csv,False
+Reproducibility,Clean default reproduction succeeds,reproduce.sh and final release gate,True
+Checker independence,Checker recomputes obligations; mutation and replay tests,"proofs, tests, safe_verify.py, claim-evidence ledger",True
+Benchmark overfitting,"Prospective frozen holdout, complete grid, no deletion",audit/HOLDOUT-PROTOCOL.md and holdout-case-manifest.json,False
+Effect robustness,"Paired node effects, bootstrap interval, unknown accounting",audit/holdout-statistics.json and holdout-robustness.md,False
+Negative results,Unknowns and non-improving sharing variants retained,raw result CSVs and paper conclusion,True
+Innovation boundary,"Conjunction of semantics, ordered certificates, composition and complexity; no priority overclaim",main paper and reviewer supplement,True
+External validity,Synthetic/low-dimensional/hardware limitations explicit,main paper conclusion and reviewer supplement,True
+Anonymous layout,20 body pages; references start page 21; blank author metadata,fresh PDF gate,False

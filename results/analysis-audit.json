@@ -1,0 +1,19 @@
+{
+  "splits": {
+    "frozen": {
+      "expected_instances": 72,
+      "expected_rows": 360,
+      "instances": 72,
+      "ok": true,
+      "rows": 360
+    },
+    "stress": {
+      "expected_instances": 16,
+      "expected_rows": 80,
+      "instances": 16,
+      "ok": true,
+      "rows": 80
+    }
+  },
+  "status": "PASS"
+}
