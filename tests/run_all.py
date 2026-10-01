@@ -25,28 +25,47 @@ from fixedscan.baseline import exact_baseline
 from fixedscan.blocks import project_coordinate, project_prefix
 from fixedscan.checker import check, load_and_check, load_instance_file
 from fixedscan.checker_arithmetic import (
+    apply_pair as checker_apply,
     lowered_trace as checker_lowered,
     output_difference as checker_difference,
     round_div as checker_round,
     sequential_trace as checker_sequential,
 )
 from fixedscan.exact_box import scalar_full_prefix_ranges
+from fixedscan.instrumentation import audit_execution, audit_execution_summary
 from fixedscan.interval_analysis import independent_bounds
 from fixedscan.model import Box, Instance
 from fixedscan.oracle import exact_oracle
+from fixedscan.producer import produce
 from fixedscan.reductions import (
     Gate, P, circuit_inputs, cnf_value, compile_circuit, compile_packed_cnf,
     evaluate_circuit, packed_inputs,
 )
 from fixedscan.symbolic import paired_bounds
-from fixedscan.transport import nearest_even_scale_counterexample, residual, verify_translation
+from fixedscan.transport import (
+    carry_step_bound,
+    contraction_counterexample,
+    exhaustive_rounding_modulus,
+    iterate_carry_bound,
+    nearest_even_scale_counterexample,
+    residual,
+    rounding_modulus,
+    saturated_residual,
+    saturation_period_counterexample,
+    verify_translation,
+)
 
 
 COUNTS: dict[str, int] = {}
+METRICS: dict[str, int] = {}
 
 
 def record(name: str, count: int = 1) -> None:
     COUNTS[name] = COUNTS.get(name, 0) + count
+
+
+def metric(name: str, value: int) -> None:
+    METRICS[name] = value
 
 
 def load_cases(split: str) -> list[Instance]:
@@ -64,6 +83,82 @@ def test_rounding() -> None:
         a, b = nearest_even_scale_counterexample(q)
         assert b - a == q and residual(a, q, "rne") != residual(b, q, "rne")
         record("rne_q_counterexamples")
+
+    omega_checks = 0
+    for q in (1, 2, 4, 8, 16):
+        for mode in ("floor", "rne"):
+            for distance in range(4 * q + 1):
+                assert rounding_modulus(distance, q, mode) == exhaustive_rounding_modulus(distance, q, mode)
+                omega_checks += 1
+    record("rounding_modulus_exact", omega_checks)
+
+    for mode in ("floor", "rne"):
+        a, b = saturation_period_counterexample(3, 2, mode)
+        assert b - a == (2 if mode == "floor" else 4)
+        assert saturated_residual(a, 3, 2, mode) != saturated_residual(b, 3, 2, mode)
+        record("saturation_period_negative_controls")
+
+        left, right, naive, actual = contraction_counterexample(4, mode)
+        assert right - left == 1 and naive == 0 and actual == 1
+        assert rounding_modulus(1, 4, mode) == 1
+        record("contraction_negative_controls")
+
+
+def test_carry_transport() -> None:
+    one_step = 0
+    for width, scale in ((3, 2), (4, 2), (4, 4)):
+        lo, hi = -(2 ** (width - 1)), 2 ** (width - 1) - 1
+        for mode in ("floor", "rne"):
+            for coefficient in range(-scale, scale + 1):
+                matrix = ((coefficient,),)
+                for left in range(lo, hi + 1):
+                    for right in range(lo, hi + 1):
+                        bound = carry_step_bound(matrix, (abs(right - left),), scale, mode)[0]
+                        for bias in (-1, 0, 1):
+                            out_left = checker_apply((matrix, (bias,)), (left,), width=width, scale=scale, mode=mode)[0]
+                            out_right = checker_apply((matrix, (bias,)), (right,), width=width, scale=scale, mode=mode)[0]
+                            assert abs(out_right - out_left) <= bound
+                            one_step += 1
+    record("carry_step_scalar_checks", one_step)
+
+    vector_checks = 0
+    matrices = (
+        ((1, -1), (2, 1)),
+        ((-2, 1), (1, 2)),
+    )
+    states = tuple(product(range(-2, 3), repeat=2))
+    for mode in ("floor", "rne"):
+        for matrix in matrices:
+            for left in states:
+                for right in states:
+                    incoming = tuple(abs(right[i] - left[i]) for i in range(2))
+                    bound = carry_step_bound(matrix, incoming, 4, mode)
+                    for bias in product((-1, 0, 1), repeat=2):
+                        out_left = checker_apply((matrix, tuple(bias)), left, width=4, scale=4, mode=mode)
+                        out_right = checker_apply((matrix, tuple(bias)), right, width=4, scale=4, mode=mode)
+                        assert all(abs(out_right[i] - out_left[i]) <= bound[i] for i in range(2))
+                        vector_checks += 1
+    record("carry_step_vector_checks", vector_checks)
+
+    recurrence_checks = 0
+    sequences = (
+        (((1,),), ((3,),), ((-1,),)),
+        (((-2,),), ((1,),), ((2,),)),
+    )
+    for mode in ("floor", "rne"):
+        for matrices_seq in sequences:
+            for left in range(-8, 8):
+                for right in range(-8, 8):
+                    theorem_bound = iterate_carry_bound(matrices_seq, (abs(right - left),), 4, mode)[0]
+                    for biases in product((-1, 0, 1), repeat=len(matrices_seq)):
+                        lstate = (left,)
+                        rstate = (right,)
+                        for matrix, bias in zip(matrices_seq, biases):
+                            lstate = checker_apply((matrix, (bias,)), lstate, width=4, scale=4, mode=mode)
+                            rstate = checker_apply((matrix, (bias,)), rstate, width=4, scale=4, mode=mode)
+                        assert abs(rstate[0] - lstate[0]) <= theorem_bound
+                        recurrence_checks += 1
+    record("carry_recurrence_checks", recurrence_checks)
 
 
 def all_prefix_points(instance: Instance, t: int):
@@ -109,6 +204,69 @@ def test_association_dp_regression() -> None:
                 values = [producer_difference(instance, p, t)[0] for p in all_prefix_points(instance, t)]
                 assert ranges[t] == (min(values), max(values))
                 record("dp_exhaustive_outputs")
+
+
+def test_producer_checker_leaf_admission() -> None:
+    """Regression for an abstract-safe root just above checker enumeration."""
+    instance = Instance(
+        name="leaf-admission-100489",
+        family="admission-regression",
+        width=10,
+        scale=2,
+        rounding="floor",
+        dimension=2,
+        horizon=1,
+        chunk_length=1,
+        association="left",
+        h0=(0, 0),
+        matrices=(((0, 0), (0, 0)),),
+        boxes=((Box(0, 316), Box(0, 316)),),
+        tolerances=((316, 316),),
+        metadata={"purpose": "producer/checker leaf-admission closure"},
+    )
+    assert instance.boxes[0][0].size() * instance.boxes[0][1].size() == 100_489
+    for method in ("interval", "fresh", "syntactic", "residue"):
+        certificate = produce(instance, method, max_nodes=8, timeout_seconds=10.0)
+        assert certificate["status"] == "safe", (method, certificate["diagnostics"])
+        assert certificate["diagnostics"]["nodes"] == 3
+        assert certificate["roots"][0]["tree"]["kind"] == "split"
+        checked = check(certificate, expected_instance=instance)
+        assert checked["accepted"], (method, checked)
+        record("leaf_admission_boundary_methods")
+
+        # Negative control for the original gap: even truthful-looking bounds
+        # on the 100,489-point root are not accepted without an exact checker
+        # replay path.  The repair refines the producer; it does not relax the
+        # checker to trust an abstract or hand-supplied bound.
+        unverified_root = {
+            "schema": "fixedscan-ordered-cover-1",
+            "instance": instance.to_dict(),
+            "method": method,
+            "status": "safe",
+            "roots": [{
+                "output": 0,
+                "tree": {
+                    "kind": "safe",
+                    "box": [[0, 316], [0, 316]],
+                    "bounds": [[0, 0], [0, 0]],
+                    "proof": "analysis",
+                },
+            }],
+            "earliest_output": None,
+            "witness": None,
+            "diagnostics": {},
+        }
+        rejected_root = check(unverified_root, expected_instance=instance)
+        assert not rejected_root["accepted"] and rejected_root["status"] == "rejected"
+        assert "outside checker admission limits" in rejected_root["error"]
+        record("leaf_admission_unverified_root_rejections")
+
+        bounded = produce(instance, method, max_nodes=1, timeout_seconds=10.0)
+        assert bounded["status"] == "unknown"
+        assert bounded["diagnostics"]["stop_reason"] == "node limit"
+        rejected = check(bounded, expected_instance=instance)
+        assert not rejected["accepted"] and rejected["status"] == "unknown"
+        record("leaf_admission_budget_unknowns")
 
 
 def _nodes(node: dict):
@@ -343,13 +501,19 @@ def test_reductions() -> None:
     circuit_families.append((3, [Gate("not", 1), Gate("and", 0, 3), Gate("and", 4, 2)], 5))
 
     fixed_checked = 0
+    preclip_events = 0
     for num_inputs, gates, output in circuit_families:
         for mode in ("floor", "rne"):
             instance = compile_circuit(num_inputs, gates, output, mode)
             for assignment in product((0, 1), repeat=num_inputs):
                 inputs = circuit_inputs(instance, assignment)
-                reference = producer_sequential(instance, inputs)
-                lowered = producer_lowered(instance, inputs)
+                reference, lowered, audit = audit_execution_summary(instance, inputs)
+                if assignment == tuple(0 for _ in range(num_inputs)):
+                    assert reference == producer_sequential(instance, inputs)
+                    assert lowered == producer_lowered(instance, inputs)
+                    record("reduction_instrumentation_crosschecks")
+                assert not audit.clipped_counts
+                preclip_events += audit.total
                 expected = evaluate_circuit(assignment, gates)[output]
                 assert reference[-1][output] == expected
                 assert lowered[-1][output] == 0
@@ -383,8 +547,13 @@ def test_reductions() -> None:
             packed_formulas += 1
             for code in range(1 << variables):
                 inputs = packed_inputs(instance, code)
-                reference = producer_sequential(instance, inputs)
-                lowered = producer_lowered(instance, inputs)
+                reference, lowered, audit = audit_execution_summary(instance, inputs)
+                if code == 0:
+                    assert reference == producer_sequential(instance, inputs)
+                    assert lowered == producer_lowered(instance, inputs)
+                    record("reduction_instrumentation_crosschecks")
+                assert not audit.clipped_counts
+                preclip_events += audit.total
                 expected = cnf_value(code, variables, formula)
                 assert reference[-1][P] == expected
                 assert lowered[-1][P] == 0
@@ -395,6 +564,36 @@ def test_reductions() -> None:
     assert packed_checked == 6474
     record("packed_formulas", packed_formulas)
     record("packed_assignments", packed_checked)
+    record("reduction_no_clip_executions", fixed_checked + packed_checked)
+    metric("reduction_preclip_events", preclip_events)
+
+    # Negative control: one tiny execution clips at every site observed by the
+    # audit (sequential state, summary matrix, summary bias, carry application).
+    clipping_instance = Instance(
+        name="clip-negative-control",
+        family="test",
+        width=3,
+        scale=2,
+        rounding="floor",
+        dimension=1,
+        horizon=2,
+        chunk_length=2,
+        association="balanced",
+        h0=(3,),
+        matrices=(((3,),), ((3,),)),
+        boxes=((Box(3, 3),), (Box(3, 3),)),
+        tolerances=((7,), (7,)),
+        metadata={},
+    )
+    _ref, _low, events = audit_execution(clipping_instance, ((3,), (3,)))
+    clipped_categories = {event.category for event in events if event.clipped}
+    assert clipped_categories == {
+        "sequential.state",
+        "summary.matrix",
+        "summary.bias",
+        "carry.apply",
+    }
+    record("clipping_negative_control_categories", len(clipped_categories))
 
 
 def test_recorded_results() -> None:
@@ -427,6 +626,74 @@ def test_recorded_results() -> None:
     assert nodes == {"interval": 24774, "fresh": 3260, "syntactic": 3260, "residue": 3260}
     record("frozen_node_totals")
 
+    certificate_bytes = {
+        method: sum(int(row["certificate_bytes"] or 0) for row in frozen_rows if row["method"] == method)
+        for method in ("interval", "fresh", "syntactic", "residue")
+    }
+    assert certificate_bytes == {
+        "interval": 2_583_453,
+        "fresh": 384_903,
+        "syntactic": 385_230,
+        "residue": 385_082,
+    }
+    record("frozen_certificate_byte_totals", len(certificate_bytes))
+
+    producer_seconds = {
+        method: round(sum(float(row["production_cpu_seconds"] or 0) for row in frozen_rows if row["method"] == method), 3)
+        for method in ("interval", "fresh", "syntactic", "residue", "exact-dp")
+    }
+    checker_seconds = {
+        method: round(sum(float(row["checker_cpu_seconds"] or 0) for row in frozen_rows if row["method"] == method), 3)
+        for method in ("interval", "fresh", "syntactic", "residue")
+    }
+    assert producer_seconds == {
+        "interval": 1.557,
+        "fresh": 4.182,
+        "syntactic": 4.099,
+        "residue": 4.100,
+        "exact-dp": 0.353,
+    }
+    assert checker_seconds == {
+        "interval": 0.598,
+        "fresh": 0.374,
+        "syntactic": 0.381,
+        "residue": 0.385,
+    }
+    record("frozen_cpu_table_totals", len(producer_seconds) + len(checker_seconds))
+
+    stress_rows = list(csv.DictReader((ROOT / "results" / "stress-by-horizon.csv").open()))
+    stress_nodes = {(int(row["horizon"]), row["method"]): int(row["nodes"]) for row in stress_rows}
+    assert stress_nodes[(8, "fresh")] == 2083
+    assert stress_nodes == {
+        (8, "interval"): 24086, (8, "fresh"): 2083, (8, "syntactic"): 2107, (8, "residue"): 2114, (8, "exact-dp"): 0,
+        (16, "interval"): 40032, (16, "fresh"): 2044, (16, "syntactic"): 2048, (16, "residue"): 2055, (16, "exact-dp"): 0,
+        (32, "interval"): 40064, (32, "fresh"): 1990, (32, "syntactic"): 2018, (32, "residue"): 1986, (32, "exact-dp"): 0,
+        (64, "interval"): 40128, (64, "fresh"): 2223, (64, "syntactic"): 2141, (64, "residue"): 2219, (64, "exact-dp"): 0,
+    }
+    record("stress_horizon_node_rows", len(stress_nodes))
+
+    paper_fragment = (ROOT / "results" / "paper-results.tex").read_text(encoding="utf-8")
+    assert "Independent intervals & 24,774 & 2,583,453" in paper_fragment
+    assert "Fresh residuals & 3,260 & 384,903" in paper_fragment
+    project_copy = ROOT.parent / "paper" / "generated-results.tex"
+    if project_copy.exists():
+        assert project_copy.read_text(encoding="utf-8") == paper_fragment
+    # Count one deterministic fragment-integrity obligation in both the full
+    # project and the standalone artifact; the full project additionally checks
+    # byte-for-byte manuscript synchronization above.
+    record("paper_result_fragment_integrity")
+
+    frozen_cases = load_cases("frozen")
+    assert all(case.chunk_length == 2 for case in frozen_cases)
+    assert Counter(case.association for case in frozen_cases) == {"left": 24, "balanced": 24, "right": 24}
+    stable_cases = [case for case in frozen_cases if case.family == "stable"]
+    unit_gain = [
+        case for case in stable_cases
+        if any(abs(matrix[0][0]) == case.scale for matrix in case.matrices)
+    ]
+    assert len(stable_cases) == 18 and len(unit_gain) == 5
+    record("frozen_design_contracts", 3)
+
 
 
 def test_reference_inventory() -> None:
@@ -456,14 +723,21 @@ def test_reference_inventory() -> None:
 
 def main() -> int:
     test_rounding()
+    test_carry_transport()
     test_paths_and_analyzers()
     test_association_dp_regression()
+    test_producer_checker_leaf_admission()
     test_certificates_and_mutations()
     test_block_factorization()
     test_reductions()
     test_recorded_results()
     test_reference_inventory()
-    output = {"status": "PASS", "checks": COUNTS, "total_assertion_units": sum(COUNTS.values())}
+    output = {
+        "status": "PASS",
+        "checks": COUNTS,
+        "observations": METRICS,
+        "total_assertion_units": sum(COUNTS.values()),
+    }
     out_path = ROOT / "results" / "test-summary.json"
     out_path.write_text(json.dumps(output, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(output, indent=2, sort_keys=True))

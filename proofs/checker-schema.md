@@ -4,6 +4,8 @@ Schema tag: `fixedscan-ordered-cover-1`.
 
 A certificate embeds the complete instance, producer method, claimed status, consecutive output roots, and optional violation metadata. The checker treats every field as untrusted. The accepted language is a closed JSON schema: unknown fields are rejected; semantic integers must have exact JSON integer type (booleans, floats, and numeric strings are not integers); duplicate object keys and nonstandard `NaN`/`Infinity` constants are rejected.
 
+The producer and checker share only `leaf_admission.py`, a nonsemantic predicate that states whether the current checker has an exact replay path for a proposed leaf. Scalar boxes are admitted through the scalar finite-state dynamic program; multidimensional boxes must fit the complete-enumeration bound. The producer does not close an abstractly safe leaf unless this predicate holds. If further canonical refinement exhausts its budget, it returns `unknown`. The checker still recomputes the exact range and never trusts the producer's abstract bounds; the unsplit 100,489-point root is an explicit rejection control.
+
 A tree node has one of three kinds:
 
 - `safe`: contains its exact traversal box, a vector of supplied difference bounds, and an informational proof label. The checker recomputes the exact range and verifies containment and tolerance.

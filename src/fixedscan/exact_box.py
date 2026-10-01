@@ -8,10 +8,10 @@ abstract interpretation.
 from __future__ import annotations
 
 from itertools import product
-from math import prod
 from typing import Sequence
 
 from .checker_arithmetic import apply_pair, compose_many, output_difference
+from .leaf_admission import DEFAULT_ENUMERATION_LIMIT, box_size, exact_leaf_admissible
 from .model import Box, Instance
 
 
@@ -19,11 +19,12 @@ class ExactBoxLimit(RuntimeError):
     pass
 
 
-def box_size(boxes: Sequence[Box]) -> int:
-    return prod(box.size() for box in boxes)
-
-
-def exact_box_range(instance: Instance, output_index: int, boxes: Sequence[Box], enumeration_limit: int = 100_000) -> tuple[tuple[int, int], ...]:
+def exact_box_range(
+    instance: Instance,
+    output_index: int,
+    boxes: Sequence[Box],
+    enumeration_limit: int = DEFAULT_ENUMERATION_LIMIT,
+) -> tuple[tuple[int, int], ...]:
     if len(boxes) != (output_index + 1) * instance.dimension:
         raise ValueError("wrong prefix box dimension")
     if instance.dimension == 1 and tuple(boxes) == instance.prefix_boxes(output_index):
@@ -42,6 +43,13 @@ def exact_box_range(instance: Instance, output_index: int, boxes: Sequence[Box],
         return tuple((mins[i], maxs[i]) for i in range(instance.dimension))
     if instance.dimension == 1:
         return (_scalar_dp_range(instance, output_index, boxes),)
+    if exact_leaf_admissible(
+        instance,
+        output_index,
+        boxes,
+        enumeration_limit=enumeration_limit,
+    ):
+        raise AssertionError("admitted multidimensional leaf bypassed enumeration")
     raise ExactBoxLimit("large non-scalar exact box is outside checker admission limits")
 
 

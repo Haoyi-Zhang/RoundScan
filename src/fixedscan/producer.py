@@ -9,6 +9,7 @@ import json
 
 from .arithmetic import output_difference
 from .interval_analysis import independent_bounds
+from .leaf_admission import exact_leaf_admissible
 from .model import Box, Instance
 from .symbolic import paired_bounds
 
@@ -57,7 +58,11 @@ def _first_split(boxes: Sequence[Box]) -> int | None:
 def _search(instance: Instance, output: int, boxes: tuple[Box, ...], method: str, budget: Budget) -> tuple[dict, str, tuple[int, ...] | None]:
     budget.admit()
     bounds = _bounds(instance, output, boxes, method)
-    if _safe(bounds, instance.tolerances[output]):
+    # Abstract safety is not enough to close a certificate leaf: the shipped
+    # checker must also have an exact replay path for this box.  Otherwise keep
+    # refining canonically; if the resource budget expires, the producer
+    # returns ``unknown`` rather than a certificate the checker must reject.
+    if _safe(bounds, instance.tolerances[output]) and exact_leaf_admissible(instance, output, boxes):
         return ({"kind": "safe", "box": _box_json(boxes), "bounds": [list(x) for x in bounds], "proof": "analysis"}, "safe", None)
 
     split = _first_split(boxes)
