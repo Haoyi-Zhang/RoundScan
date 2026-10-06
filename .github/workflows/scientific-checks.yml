@@ -31,12 +31,12 @@ jobs:
           ulimit -f 262144
           cpu=$(python -B -c 'import os; print(min(os.sched_getaffinity(0)))')
           timeout --signal=TERM --kill-after=10s 540s taskset -c "$cpu" python -B scripts/reproduce.py \
-            --rerun-campaign --campaign-out ../scientific-output/campaign \
+            --rerun-campaign --campaign-out "$RUNNER_TEMP/roundscan-campaign" \
             2>&1 | tee scientific-output/replay.log
           python -B - <<'PY'
-          import json
+          import json, os
           from pathlib import Path
-          root = Path('../scientific-output/campaign')
+          root = Path(os.environ['RUNNER_TEMP']) / 'roundscan-campaign'
           totals = {}
           for split, expected in (('frozen', 360), ('stress', 80)):
               paths = list((root / 'raw' / split).glob('*.json'))
@@ -58,7 +58,7 @@ jobs:
           name: scientific-checks-raw
           path: |
             scientific-output/
-            ${{ github.workspace }}/../scientific-output/campaign/
+            ${{ runner.temp }}/roundscan-campaign/
             results/
           if-no-files-found: error
           retention-days: 14
