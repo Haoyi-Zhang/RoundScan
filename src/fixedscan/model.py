@@ -292,6 +292,6 @@ class Instance:
     def save(self, path: str | Path) -> None:
         p = Path(path)
         p.parent.mkdir(parents=True, exist_ok=True)
-        with p.open("w", encoding="utf-8") as f:
+        with p.open("w", encoding="utf-8", newline="\n") as f:
             json.dump(self.to_dict(), f, indent=2, sort_keys=True, allow_nan=False)
             f.write("\n")

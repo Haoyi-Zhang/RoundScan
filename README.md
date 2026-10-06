@@ -8,7 +8,7 @@ An instance embeds signed word width, power-of-two scale, floor or round-to-near
 
 A conclusive ordered-cover certificate contains one root per proven-safe output and, when the contract fails, a singleton witness at the first failing output. The checker recomputes exact leaf ranges. It also enforces canonical first-nonsingleton splitting and left-before-right traversal, so an accepted violation certificate establishes the lexicographically first violating prefix at the earliest failing output. An `unknown` producer result is never accepted as a proof.
 
-The producer closes an abstractly safe leaf only when the current exact checker admits that leaf: every scalar leaf has an exact finite-state DP path, while a multidimensional leaf must contain at most 100,000 points for complete enumeration. Otherwise the producer subdivides canonically and returns `unknown` if its node or time budget expires. This shared admission predicate contains no arithmetic fact; the checker still independently recomputes the exact range, and the unsplit 100,489-point root remains rejected even when supplied with truthful-looking bounds.
+The producer closes an abstractly safe leaf only when the current exact checker admits that leaf: every scalar leaf has an exact finite-state DP path, while a multidimensional leaf must contain at most 100,000 points for complete enumeration. Otherwise the producer subdivides canonically and returns `unknown` if its node or time budget expires or its interpreter stack is exhausted. This shared admission predicate contains no arithmetic fact; the checker still independently recomputes the exact range, and the unsplit 100,489-point root remains rejected even when supplied with truthful-looking bounds.
 
 ## Repository map
 
@@ -35,13 +35,17 @@ Python 3.11 or newer is sufficient.
 
 The default path regenerates all deterministic case files in a temporary directory and compares them byte-for-byte, rebuilds every result table from the raw records, verifies recorded certificate byte counts against the actual files, audits the 30-entry scholarly-reference inventory, independently checks every stored certificate, reruns all finite oracles and mutation tests, and writes `results/reproduction.json`. It deliberately does not overwrite recorded wall/CPU timings.
 
-To rerun the complete one-worker campaign before the same checks:
+To rerun the complete one-worker campaign into a new directory before rechecking the retained evidence:
 
 ```sh
-./reproduce.sh --rerun-campaign
+./reproduce.sh --rerun-campaign --campaign-out ../campaign-output
 ```
 
-Each frozen task has a 20-second internal limit and 5,000-node cover limit. Each stress cover task has a 5-second internal limit and 20,000-node limit; the exact dynamic-program baseline gets 12 seconds. `unknown` is an intended resource-bound outcome. Timings are machine dependent, while statuses, certificate acceptance, node counts on completed deterministic searches, and test assertions are the claim-bearing quantities.
+The campaign output must not already exist and must not be inside the shipped `results/` tree. The original raw records, tables, certificates, and historical timing checks remain intact; fresh raw records, certificates, summaries, and worker output are written separately. Resource-bound stress outcomes can vary by host. The Unix RSS measurement is reported as unavailable on Windows, rather than fabricated.
+
+Each frozen task has a 20-second internal limit and 5,000-node cover limit. Each stress cover task has a 5-second internal limit and 20,000-node limit; the exact dynamic-program baseline gets 12 seconds. The producer and baseline recheck the deadline after analysis and before reporting a conclusion. These are cooperative deadlines, not preemption within one arithmetic call; the campaign runner additionally terminates workers after the internal limit plus five seconds. `unknown` is an intended resource-bound outcome. Timings are machine dependent, while statuses, certificate acceptance, node counts on completed deterministic searches, and test assertions are the claim-bearing quantities.
+
+`python3 -B tests/test_exact_boundaries.py` runs ten additional regression methods for wide-word exact extrema, unchanged public width admission, cooperative deadlines, exact-leaf rejection, interpreter stack exhaustion, canonical LF serialization, and separate campaign output. They are separate from the historical 188,847-unit ledger. `.github/workflows/scientific-checks.yml` replays the retained evidence and these regressions on Ubuntu 24.04 with one CPU, a 2 GiB address-space limit, and a 540-second whole-command limit; it uploads raw logs and result files even on failure. This workflow definition is not evidence that a remote run has succeeded.
 
 Check one certificate directly:
 

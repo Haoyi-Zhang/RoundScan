@@ -7,7 +7,7 @@ from time import process_time, monotonic
 from typing import Sequence
 
 from .checker_arithmetic import output_difference
-from .exact_box import exact_box_range
+from .exact_box import ExactBoxLimit, exact_box_range
 from .model import Box, Instance
 
 
@@ -18,12 +18,24 @@ def exact_baseline(instance: Instance, timeout_seconds: float = 12.0) -> dict:
         if monotonic() > deadline:
             return _finish("unknown", None, None, queries, start_cpu, start_wall, "wall-clock limit")
         boxes = instance.prefix_boxes(t)
-        ranges = exact_box_range(instance, t, boxes); queries += 1
+        try:
+            ranges = exact_box_range(instance, t, boxes); queries += 1
+        except (ExactBoxLimit, MemoryError) as exc:
+            return _finish("unknown", None, None, queries, start_cpu, start_wall, str(exc))
+        if monotonic() > deadline:
+            return _finish("unknown", None, None, queries, start_cpu, start_wall, "wall-clock limit")
         if any(lo < -tol or hi > tol for (lo, hi), tol in zip(ranges, instance.tolerances[t])):
-            witness = _lex_witness(instance, t, boxes, deadline)
+            try:
+                witness = _lex_witness(instance, t, boxes, deadline)
+            except (ExactBoxLimit, MemoryError) as exc:
+                return _finish("unknown", None, None, queries, start_cpu, start_wall, str(exc))
+            if monotonic() > deadline:
+                return _finish("unknown", None, None, queries, start_cpu, start_wall, "wall-clock limit")
             if witness is None:
                 return _finish("unknown", None, None, queries, start_cpu, start_wall, "witness search limit")
             return _finish("violated", t, witness, queries, start_cpu, start_wall, None)
+    if monotonic() > deadline:
+        return _finish("unknown", None, None, queries, start_cpu, start_wall, "wall-clock limit")
     return _finish("safe", None, None, queries, start_cpu, start_wall, None)
 
 

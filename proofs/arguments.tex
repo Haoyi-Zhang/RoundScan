@@ -183,7 +183,7 @@ After step $t$, define a state triple $(r,c,u)$ consisting of the sequential ref
 For every box on which \texttt{exact\_box\_range} returns rather than raising \texttt{ExactBoxLimit}, its returned component intervals are exact ranges.
 \end{proposition}
 \begin{proof}
-Small boxes are enumerated completely. Large admitted scalar boxes use Lemma~\ref{lem:dp}. Large nonscalar boxes outside the enumeration bound are rejected rather than approximated.
+Small boxes are enumerated completely. Since both stored outputs lie in $[L,H]$, their difference lies in $[-(H-L),H-L]$; initializing the enumeration extrema at these opposite endpoints and updating them for every point yields the exact extrema even when the word width grows. Large admitted scalar boxes use Lemma~\ref{lem:dp}. Large nonscalar boxes outside the enumeration bound are rejected rather than approximated.
 \end{proof}
 
 \begin{lemma}[Ordered-cover integrity]\label{lem:cover}
@@ -212,9 +212,10 @@ Assume the leaf evaluator admits every singleton and the producer's abstract bou
 \begin{proof}
 Each non-singleton split strictly reduces the cardinality of both child boxes, so recursive subdivision of a finite integer box terminates. A sound abstract proof may stop earlier. Otherwise every leaf eventually becomes singleton, where exact replay decides it. Outputs are processed in increasing time and subboxes in left-before-right lexicographic order, so the first encountered witness has the required ordering. A safe instance exhausts all roots with safe leaves.
 \end{proof}
+This is completeness of the abstract finite search with sufficient memory and stack space. The Python implementation treats interpreter stack exhaustion as an \texttt{unknown} resource-stop outcome, not as an accepted certificate.
 
 \section{Temporal composition}
-For a nonnegative integer difference $D$, let $\omega_q(D)$ be Lemma~\ref{lem:modulus}. For a stored matrix $A$ define the monotone component map
+For a nonnegative integer difference $D$, let $\omega_q(D)$ be Lemma~\ref{lem:modulus}. For a stored matrix $A$ and $v\in\Z_{\ge0}^d$ define the monotone component map
 \[
   T_A(v)_i=\omega_q\!\left(\sum_k |A_{ik}|v_k\right).
 \]
@@ -225,10 +226,10 @@ Let $F_{j,p}(h,u)$ be the sequential execution of prefix $p$ in chunk $j$ from c
  |G_{j,p}(h,u)-F_{j,p}(h,u)|\le\varepsilon_{j,p}
  \quad(h\in C_j,\ u\in U_j),
 \]
-and $C_j$ contains the actual incoming carries of both executions.
+where $\varepsilon_{j,p}\in\Z_{\ge0}^d$, and $C_j$ contains the actual incoming carries of both executions.
 
 \begin{theorem}[Carry-aware temporal error contract]\label{thm:temporal}
-If the incoming carry difference is bounded by $E_{j-1}$, then
+If the incoming carry difference is bounded by $E_{j-1}\in\Z_{\ge0}^d$, then
 \[
  |\widehat h_{j,p}-h_{j,p}|
  \le E_{j,p}:=\min\{(H-L)\mathbf 1,\ \varepsilon_{j,p}+\Phi_{j,p}(E_{j-1})\}
@@ -263,7 +264,7 @@ By Lemma~\ref{lem:factor}, a componentwise product contract holds exactly when i
 \end{proof}
 
 \section{Rounding-only complexity barrier}
-We state decision problems under the explicit finite semantics above. An instance is encoded by its dimensions, horizon, word width, scale, matrices, boxes, trees, and tolerances. A violating input prefix is polynomial in that encoding and can be replayed in polynomial time using integer arithmetic of polynomial bit length. Thus unsafety is in NP and safety is in coNP for both restricted families below.
+We state decision problems under the explicit finite semantics above. An instance is encoded by its dimensions, horizon, word width, scale, matrices, boxes, trees, and tolerances. The $w$ bits of each stored word are charged explicitly, rather than encoding only a succinct binary width. A violating input prefix is polynomial in that encoding and can be replayed in polynomial time using integer arithmetic of polynomial bit length. Thus unsafety is in NP and safety is in coNP for both restricted families below.
 
 \begin{lemma}[Two-step Boolean annihilator]\label{lem:annihilator}
 At scale $q=2$, let $x\in\{0,1\}$ and scratch $s=0$. First preserve $x$ and set $s=\R_2(x)$. Then set $x'=\R_2(2x-4s)$. Under floor or nearest-even, sequential execution yields $x'=x$. Quantized composition of the two stored matrices has an all-zero output row for $x$, so the lowered two-step prefix yields zero. Every value fits a signed three-bit word and clipping is inactive.

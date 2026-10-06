@@ -199,7 +199,7 @@ def write_collections(root: str | Path) -> dict[str, object]:
             "prefix_evaluations": sum(int(x.metadata.get("prefix_evaluations", 0)) for x in cases),
             "safe": sum(bool(x.metadata.get("oracle_safe")) for x in cases if "oracle_safe" in x.metadata),
         }
-    with (root / "manifest.json").open("w", encoding="utf-8") as f:
+    with (root / "manifest.json").open("w", encoding="utf-8", newline="\n") as f:
         json.dump(summary, f, indent=2, sort_keys=True)
         f.write("\n")
     return summary

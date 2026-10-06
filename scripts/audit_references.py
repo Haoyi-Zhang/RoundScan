@@ -53,7 +53,8 @@ def main() -> int:
         "manuscript_references": len(rows),
         "unique_identifiers": len(set(identifiers)),
         "all_cited": all(r.get("paper_cited") == "yes" for r in rows),
-        "all_verified": all(r.get("status") == "verified" for r in rows),
+        "all_rows_recorded_as_verified": all(r.get("status") == "verified" for r in rows),
+        "scope": "Inventory and recorded provenance fields only; no online or full-text verification is performed by this command.",
         "errors": errors,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)

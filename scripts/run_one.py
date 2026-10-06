@@ -3,7 +3,10 @@
 from __future__ import annotations
 import argparse
 import json
-import resource
+try:
+    import resource
+except ImportError:  # The recorded Unix RSS metric is unavailable on Windows.
+    resource = None
 import sys
 from pathlib import Path
 
@@ -28,7 +31,7 @@ def main() -> int:
         out = {
             "kind": "baseline",
             "result": result,
-            "peak_rss_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+            "peak_rss_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss if resource else None,
         }
     else:
         cert = produce(inst, args.method, max_nodes=args.max_nodes, timeout_seconds=args.timeout)
@@ -42,7 +45,7 @@ def main() -> int:
             "certificate_bytes": cert_bytes,
             "status": cert["status"],
             "diagnostics": cert["diagnostics"],
-            "peak_rss_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+            "peak_rss_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss if resource else None,
         }
     print(json.dumps(out, sort_keys=True))
     return 0

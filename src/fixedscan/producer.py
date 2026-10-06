@@ -24,11 +24,14 @@ class Budget:
     deadline: float
     nodes: int = 0
 
+    def check_time(self) -> None:
+        if monotonic() > self.deadline:
+            raise ResourceStop("wall-clock limit")
+
     def admit(self) -> None:
         if self.nodes >= self.max_nodes:
             raise ResourceStop("node limit")
-        if monotonic() > self.deadline:
-            raise ResourceStop("wall-clock limit")
+        self.check_time()
         self.nodes += 1
 
 
@@ -58,6 +61,7 @@ def _first_split(boxes: Sequence[Box]) -> int | None:
 def _search(instance: Instance, output: int, boxes: tuple[Box, ...], method: str, budget: Budget) -> tuple[dict, str, tuple[int, ...] | None]:
     budget.admit()
     bounds = _bounds(instance, output, boxes, method)
+    budget.check_time()
     # Abstract safety is not enough to close a certificate leaf: the shipped
     # checker must also have an exact replay path for this box.  Otherwise keep
     # refining canonically; if the resource budget expires, the producer
@@ -69,6 +73,7 @@ def _search(instance: Instance, output: int, boxes: tuple[Box, ...], method: str
     if split is None:
         point = tuple(b.lo for b in boxes)
         diff = output_difference(instance, point, output)
+        budget.check_time()
         if any(abs(diff[i]) > instance.tolerances[output][i] for i in range(instance.dimension)):
             return ({"kind": "witness", "box": _box_json(boxes), "point": list(point), "difference": list(diff)}, "witness", point)
         exact = tuple((x, x) for x in diff)
@@ -102,6 +107,7 @@ def produce(instance: Instance, method: str, *, max_nodes: int = 20000, timeout_
     try:
         for output in range(instance.horizon):
             tree, root_status, root_witness = _search(instance, output, instance.prefix_boxes(output), method, budget)
+            budget.check_time()
             roots.append({"output": output, "tree": tree})
             if root_status == "witness":
                 status = "violated"; witness = root_witness; earliest = output
@@ -109,6 +115,11 @@ def produce(instance: Instance, method: str, *, max_nodes: int = 20000, timeout_
     except (ResourceStop, MemoryError) as exc:
         status = "unknown"
         stop_reason = str(exc)
+    except RecursionError:
+        # A finite canonical cover can still exceed the interpreter's stack.
+        # An incomplete search is a resource stop, never a safety conclusion.
+        status = "unknown"
+        stop_reason = "recursion limit"
     return {
         "schema": "fixedscan-ordered-cover-1",
         "instance": instance.to_dict(),

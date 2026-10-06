@@ -28,8 +28,10 @@ def exact_oracle(instance: Instance) -> OracleResult:
     first_witness: tuple[int, ...] | None = None
     count = 0
     for t in range(instance.horizon):
-        mins = [10**30] * instance.dimension
-        maxs = [-10**30] * instance.dimension
+        lo_word, hi_word = instance.word_bounds
+        span = hi_word - lo_word
+        mins = [span] * instance.dimension
+        maxs = [-span] * instance.dimension
         for point in points(instance.prefix_boxes(t)):
             count += 1
             diff = output_difference(instance, point, t)

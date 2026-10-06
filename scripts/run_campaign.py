@@ -29,28 +29,35 @@ def run_task(case_path: Path, method: str, split: str, cert_path: Path) -> dict:
     hard_timeout = internal_timeout + 5.0
     max_nodes = 5000 if split == "frozen" else 20000
     cmd = [
-        sys.executable, str(ROOT / "scripts" / "run_one.py"), str(case_path), method,
+        sys.executable, "-B", str(ROOT / "scripts" / "run_one.py"), str(case_path), method,
         "--max-nodes", str(max_nodes), "--timeout", str(internal_timeout),
     ]
     if method != "exact-dp":
         cmd += ["--certificate", str(cert_path)]
     env = os.environ.copy(); env["PYTHONPATH"] = str(ROOT / "src")
+    env["PYTHONUTF8"] = "1"; env["PYTHONDONTWRITEBYTECODE"] = "1"
     wall_start = time.monotonic()
     try:
         cp = subprocess.run(cmd, capture_output=True, text=True, env=env, timeout=hard_timeout, check=False)
-    except subprocess.TimeoutExpired:
+    except subprocess.TimeoutExpired as exc:
         return {
             "kind": "timeout", "status": "unknown", "wall": time.monotonic() - wall_start,
             "error": "hard subprocess timeout",
+            "worker_stdout": (exc.stdout or b"").decode("utf-8", errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or ""),
+            "worker_stderr": (exc.stderr or b"").decode("utf-8", errors="replace") if isinstance(exc.stderr, bytes) else (exc.stderr or ""),
         }
     wall = time.monotonic() - wall_start
     if cp.returncode != 0:
-        return {"kind": "error", "status": "unknown", "wall": wall, "error": cp.stderr[-4000:]}
+        return {"kind": "error", "status": "unknown", "wall": wall, "error": cp.stderr[-4000:],
+                "worker_stdout": cp.stdout, "worker_stderr": cp.stderr}
     try:
         out = json.loads(cp.stdout.strip().splitlines()[-1])
     except Exception as exc:
-        return {"kind": "error", "status": "unknown", "wall": wall, "error": f"bad task output: {exc}: {cp.stdout[-1000:]}"}
+        return {"kind": "error", "status": "unknown", "wall": wall, "error": f"bad task output: {exc}: {cp.stdout[-1000:]}",
+                "worker_stdout": cp.stdout, "worker_stderr": cp.stderr}
     out["process_wall_seconds"] = wall
+    out["worker_stdout"] = cp.stdout
+    out["worker_stderr"] = cp.stderr
     return out
 
 
@@ -76,23 +83,25 @@ def row_from_raw(raw: dict) -> dict:
     }
 
 
-def collect_split(split: str) -> list[dict]:
+def collect_split(split: str, results_root: Path | None = None) -> list[dict]:
+    results_root = results_root if results_root is not None else ROOT / "results"
     rows = []
-    for path in sorted((ROOT / "results" / "raw" / split).glob("*.json")):
+    for path in sorted((results_root / "raw" / split).glob("*.json")):
         with path.open("r", encoding="utf-8") as f:
             rows.append(row_from_raw(json.load(f)))
     rows.sort(key=lambda r: (r["case"], METHODS.index(r["method"])))
-    metrics_path = ROOT / "results" / f"{split}-metrics.csv"
+    metrics_path = results_root / f"{split}-metrics.csv"
     with metrics_path.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=FIELDS); w.writeheader(); w.writerows(rows)
-    summarize(split, rows)
+    summarize(split, rows, results_root)
     return rows
 
 
-def run_split(split: str, start: int = 0, count: int | None = None) -> list[dict]:
+def run_split(split: str, start: int = 0, count: int | None = None, results_root: Path | None = None) -> list[dict]:
+    results_root = results_root if results_root is not None else ROOT / "results"
     case_dir = ROOT / "cases" / split
-    raw_dir = ROOT / "results" / "raw" / split
-    cert_dir = ROOT / "results" / "certificates" / split
+    raw_dir = results_root / "raw" / split
+    cert_dir = results_root / "certificates" / split
     raw_dir.mkdir(parents=True, exist_ok=True); cert_dir.mkdir(parents=True, exist_ok=True)
     rows: list[dict] = []
     all_cases = sorted(case_dir.glob("*.json"))
@@ -107,10 +116,14 @@ def run_split(split: str, start: int = 0, count: int | None = None) -> list[dict
                 rows.append(row_from_raw(existing))
                 continue
             cert_path = cert_dir / f"{inst.name}-{method}.json"
-            if cert_path.exists(): cert_path.unlink()
+            if cert_path.exists():
+                raise FileExistsError(f"orphan certificate must not be overwritten: {cert_path}")
             task = run_task(case_path, method, split, cert_path)
             if task.get("certificate"):
-                task["certificate"] = str(cert_path.relative_to(ROOT))
+                # Historical records use repository-relative results/... paths;
+                # fresh external campaigns use paths relative to their output.
+                base = ROOT if results_root == ROOT / "results" else results_root
+                task["certificate"] = cert_path.relative_to(base).as_posix()
             checker = None
             status = task.get("status", "unknown")
             production_cpu = production_wall = process_cpu = None
@@ -160,7 +173,8 @@ def run_split(split: str, start: int = 0, count: int | None = None) -> list[dict
     return rows
 
 
-def summarize(split: str, rows: list[dict]) -> None:
+def summarize(split: str, rows: list[dict], results_root: Path | None = None) -> None:
+    results_root = results_root if results_root is not None else ROOT / "results"
     summary: dict[str, object] = {"split": split, "instances": len({r['case'] for r in rows}), "methods": {}}
     for method in METHODS:
         rs = [r for r in rows if r["method"] == method]
@@ -171,7 +185,7 @@ def summarize(split: str, rows: list[dict]) -> None:
             "producer_cpu_seconds": sum(float(r["production_cpu_seconds"] or 0) for r in rs),
             "checker_cpu_seconds": sum(float(r["checker_cpu_seconds"] or 0) for r in rs),
         }
-    with (ROOT / "results" / f"{split}-summary.json").open("w", encoding="utf-8") as f:
+    with (results_root / f"{split}-summary.json").open("w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2, sort_keys=True); f.write("\n")
 
 
@@ -180,10 +194,17 @@ def main() -> int:
     ap.add_argument("--split", choices=("frozen", "stress", "all"), default="all")
     ap.add_argument("--start", type=int, default=0)
     ap.add_argument("--count", type=int)
+    ap.add_argument("--out", type=Path, help="fresh campaign output; preserves shipped measurements")
     args = ap.parse_args()
+    results_root = ROOT / "results"
+    if args.out is not None:
+        results_root = args.out.resolve()
+        if results_root == (ROOT / "results").resolve() or (ROOT / "results").resolve() in results_root.parents:
+            ap.error("--out must not be inside the shipped results tree")
+        results_root.mkdir(parents=True, exist_ok=False)
     splits = ("frozen", "stress") if args.split == "all" else (args.split,)
     for split in splits:
-        run_split(split, args.start, args.count); collect_split(split)
+        run_split(split, args.start, args.count, results_root); collect_split(split, results_root)
     return 0
 
 if __name__ == "__main__":

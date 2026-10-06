@@ -2,7 +2,7 @@
 
 Small multidimensional boxes are enumerated. Large scalar prefixes are handled
 by a finite-state dynamic program over the reference state, chunk carry, and
-current stored summary. This module intentionally does not import the producer's
+current chunk input tuple. This module intentionally does not import the producer's
 abstract interpretation.
 """
 from __future__ import annotations
@@ -33,8 +33,12 @@ def exact_box_range(
     if instance.dimension == 1 and (size > 1000 or output_index > 6):
         return (_scalar_dp_range(instance, output_index, boxes),)
     if size <= enumeration_limit:
-        mins = [10**30] * instance.dimension
-        maxs = [-10**30] * instance.dimension
+        # Both traces store words, so their difference lies within this span.
+        # A fixed decimal sentinel is incorrect for the parametric model API.
+        lo_word, hi_word = instance.word_bounds
+        span = hi_word - lo_word
+        mins = [span] * instance.dimension
+        maxs = [-span] * instance.dimension
         for point in product(*(range(b.lo, b.hi + 1) for b in boxes)):
             diff = output_difference(instance, point, output_index)
             for i, value in enumerate(diff):
@@ -151,4 +155,3 @@ def scalar_full_prefix_ranges(instance: Instance) -> tuple[tuple[int, int], ...]
     out = tuple(ranges)
     _FULL_SCALAR_CACHE[key] = out
     return out
-
