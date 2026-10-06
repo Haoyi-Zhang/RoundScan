@@ -58,7 +58,7 @@ jobs:
           name: scientific-checks-raw
           path: |
             scientific-output/
-            ../scientific-output/campaign/
+            ${{ github.workspace }}/../scientific-output/campaign/
             results/
           if-no-files-found: error
           retention-days: 14
