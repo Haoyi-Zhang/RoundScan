@@ -10,13 +10,17 @@ from __future__ import annotations
 from itertools import product
 from typing import Sequence
 
-from .checker_arithmetic import apply_pair, compose_many, output_difference
+from .checker_arithmetic import Pair, apply_pair, compose_many, output_difference
 from .leaf_admission import DEFAULT_ENUMERATION_LIMIT, box_size, exact_leaf_admissible
 from .model import Box, Instance
 
 
 class ExactBoxLimit(RuntimeError):
     pass
+
+
+# Each layer owns its summaries. At the cap, compute without admitting more.
+_LAYER_SUMMARY_CACHE_LIMIT = 4096
 
 
 def exact_box_range(
@@ -73,23 +77,28 @@ def _scalar_dp_range(instance: Instance, output_index: int, boxes: Sequence[Box]
         a = instance.matrices[t][0][0]
         chunk_start = (t // instance.chunk_length) * instance.chunk_length
         next_states: set[tuple[int, int, tuple[int, ...]]] = set()
+        summaries: dict[tuple[int, ...], Pair] = {}
         box = boxes[t]
         end_chunk = ((t + 1) % instance.chunk_length == 0) or t == instance.horizon - 1
         for ref, carry, partial_inputs in states:
             for b in range(box.lo, box.hi + 1):
                 ref2 = apply_pair((((a,),), (b,)), (ref,), width=instance.width, scale=instance.scale, mode=instance.rounding)[0]
                 chunk_inputs = partial_inputs + (b,)
-                pairs = [
-                    (instance.matrices[chunk_start + j], (value,))
-                    for j, value in enumerate(chunk_inputs)
-                ]
-                summary = compose_many(
-                    pairs,
-                    width=instance.width,
-                    scale=instance.scale,
-                    mode=instance.rounding,
-                    association=instance.association,
-                )
+                summary = summaries.get(chunk_inputs)
+                if summary is None:
+                    pairs = [
+                        (instance.matrices[chunk_start + j], (value,))
+                        for j, value in enumerate(chunk_inputs)
+                    ]
+                    summary = compose_many(
+                        pairs,
+                        width=instance.width,
+                        scale=instance.scale,
+                        mode=instance.rounding,
+                        association=instance.association,
+                    )
+                    if len(summaries) < _LAYER_SUMMARY_CACHE_LIMIT:
+                        summaries[chunk_inputs] = summary
                 low = apply_pair(summary, (carry,), width=instance.width, scale=instance.scale, mode=instance.rounding)[0]
                 if t == output_index:
                     final_diffs.add(low - ref2)
@@ -126,6 +135,7 @@ def scalar_full_prefix_ranges(instance: Instance) -> tuple[tuple[int, int], ...]
         a = instance.matrices[t][0][0]
         chunk_start = (t // instance.chunk_length) * instance.chunk_length
         next_states: set[tuple[int, int, tuple[int, ...]]] = set()
+        summaries: dict[tuple[int, ...], Pair] = {}
         diffs: set[int] = set()
         box = instance.boxes[t][0]
         end_chunk = ((t + 1) % instance.chunk_length == 0) or t == instance.horizon - 1
@@ -133,17 +143,21 @@ def scalar_full_prefix_ranges(instance: Instance) -> tuple[tuple[int, int], ...]
             for b in range(box.lo, box.hi + 1):
                 ref2 = apply_pair((((a,),), (b,)), (ref,), width=instance.width, scale=instance.scale, mode=instance.rounding)[0]
                 chunk_inputs = partial_inputs + (b,)
-                pairs = [
-                    (instance.matrices[chunk_start + j], (value,))
-                    for j, value in enumerate(chunk_inputs)
-                ]
-                summary = compose_many(
-                    pairs,
-                    width=instance.width,
-                    scale=instance.scale,
-                    mode=instance.rounding,
-                    association=instance.association,
-                )
+                summary = summaries.get(chunk_inputs)
+                if summary is None:
+                    pairs = [
+                        (instance.matrices[chunk_start + j], (value,))
+                        for j, value in enumerate(chunk_inputs)
+                    ]
+                    summary = compose_many(
+                        pairs,
+                        width=instance.width,
+                        scale=instance.scale,
+                        mode=instance.rounding,
+                        association=instance.association,
+                    )
+                    if len(summaries) < _LAYER_SUMMARY_CACHE_LIMIT:
+                        summaries[chunk_inputs] = summary
                 low = apply_pair(summary, (carry,), width=instance.width, scale=instance.scale, mode=instance.rounding)[0]
                 diffs.add(low - ref2)
                 if end_chunk:

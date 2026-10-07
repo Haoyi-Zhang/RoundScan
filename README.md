@@ -85,6 +85,19 @@ The test suite records 188,847 assertion units. It includes 45,072 producer/chec
 
 ## Trusted boundary and limitations
 
+The current scalar exact evaluator reuses immutable summaries for identical
+complete chunk-input tuples within a single layer, capped at 4,096 entries.
+Every reference/carry transition is still evaluated, and each summary is rebuilt
+under the declared association rather than incrementally imposing a left tree.
+At the cap, further tuples compute without being cached. This bound is on
+entries, not a measured peak-memory or end-to-end speedup claim. The existing
+full-instance cache and every admission/deadline rule remain unchanged.
+Run the separate portable four-method definition-oracle regression with
+`python3 -B tests/test_scalar_summary_cache.py -v`; scientific CI requires it
+and retains its log without changing the old 188,847-unit or ten-method gates.
+All historical/native measurements above remain evidence for their original
+pre-summary-reuse sources; no new timing has been performed.
+
 The checker accepts a closed JSON schema: semantic integers must be JSON integers (not booleans, floats, or strings), duplicate keys and nonstandard numeric constants are rejected, and explicit byte/node/depth plus model-size limits are enforced. It uses a separately written concrete-integer interpreter plus complete multidimensional enumeration or exact scalar DP. It does not use the producer's numbered-atom abstraction to discharge a leaf. The producer and checker share the structural leaf-admission predicate solely to avoid producing leaves the checker cannot replay.
 
 The checker remains code produced and reviewed within one development process, not an independently authored or machine-verified checker. General theorem arguments in `proofs/arguments.tex` are hand proofs. Finite tests validate implemented cases but do not mechanize those general arguments. The generated suites are discriminating semantic and certificate tests, not trained-model, accelerator, deployment, or workload-performance evidence. Input boxes are Cartesian; one scale and rounding mode apply per instance; other large multidimensional leaves can exceed the exact checker's admitted limit and force subdivision or `unknown`.
