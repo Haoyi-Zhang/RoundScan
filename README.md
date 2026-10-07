@@ -85,6 +85,38 @@ The test suite records 188,847 assertion units. It includes 45,072 producer/chec
 
 ## Trusted boundary and limitations
 
+### Separate non-inert association coverage
+
+`docs/association-coverage.md` declares an unfiltered 144-instance product:
+widths four/five, two coordinates, horizon four, chunks three/four, three
+time-varying coupled profiles, two fixed tolerances, three associations and two
+rounding modes. Tolerances are chosen before oracle evaluation, not derived
+from oracle maxima. The test-local integer definition imports no production
+module. The runner checks all 48,960 nonempty prefixes against both concrete
+paths, the shipped oracle and exact checker ranges; all three cover methods
+receive the same 5,000-node/20-second cooperative limits. Association changes
+the contract, so sharing policies are compared only on the same instance.
+
+One bounded local coverage execution retained all 144 instances: 24 safe and
+120 violated, no unknowns or missing cases, and 432 accepted certificates.
+Fresh/syntactic/residue totals were 2,126/2,126/2,110 nodes. Residue used fewer
+nodes than fresh in eight contracts and equal nodes in 136; syntactic tied in
+all 144. Association changed pointwise outputs in 40 of 48 base/rounding
+groups; those groups are not independent samples (the tolerance factor
+duplicates execution semantics). This is finite coverage/topology evidence,
+not a timing, general dominance or workload-prevalence claim. The retained
+frozen null ablation, stress unknowns and all historical measurements above
+remain unchanged.
+
+Run `python3 -B tests/test_association_coverage.py -v` (five separate methods),
+then `python3 -B scripts/association_coverage.py --out ../association-study`
+into a new absent directory. No inherited cases/results are overwritten;
+`write_collections` is never called. A separate scientific CI job requires
+these controls and this bounded cohort, preserving raw outputs even on
+failure. Its definition is not a successful hosted-run receipt. The local raw
+cohort evidence is a separate review handoff, not inserted into the historical
+result tree or its 188,847-unit ledger.
+
 The current scalar exact evaluator reuses immutable summaries for identical
 complete chunk-input tuples within a single layer, capped at 4,096 entries.
 Every reference/carry transition is still evaluated, and each summary is rebuilt
