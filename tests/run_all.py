@@ -701,7 +701,7 @@ def test_reference_inventory() -> None:
     path = ROOT / "reference-audit.csv"
     with path.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
-    assert len(rows) == 30
+    assert len(rows) >= 50
     keys: set[str] = set()
     identifiers: set[str] = set()
     for row in rows:

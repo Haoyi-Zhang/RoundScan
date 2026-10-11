@@ -25,8 +25,8 @@ def main() -> int:
     missing_columns = sorted(REQUIRED - fields)
     if missing_columns:
         errors.append(f"missing columns: {missing_columns}")
-    if len(rows) < 30:
-        errors.append(f"only {len(rows)} manuscript references; expected at least 30")
+    if len(rows) < 50:
+        errors.append(f"only {len(rows)} manuscript references; expected at least 50")
     keys = [r.get("bib_key", "") for r in rows]
     for key, count in Counter(keys).items():
         if not key or count != 1:

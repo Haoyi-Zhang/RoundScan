@@ -39,11 +39,11 @@
     "sound_enclosures": 1920,
     "stress_horizon_node_rows": 20,
     "translation_periods": 8,
-    "verified_references": 30
+    "verified_references": 50
   },
   "observations": {
     "reduction_preclip_events": 11320776
   },
   "status": "PASS",
-  "total_assertion_units": 188847
+  "total_assertion_units": 188867
 }

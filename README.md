@@ -33,7 +33,7 @@ Python 3.11 or newer is sufficient.
 ./reproduce.sh
 ```
 
-The default path regenerates all deterministic case files in a temporary directory and compares them byte-for-byte, rebuilds every result table from the raw records, verifies recorded certificate byte counts against the actual files, audits the 30-entry scholarly-reference inventory, independently checks every stored certificate, reruns all finite oracles and mutation tests, and writes `results/reproduction.json`. It deliberately does not overwrite recorded wall/CPU timings.
+The default path regenerates all deterministic case files in a temporary directory and compares them byte-for-byte, rebuilds every result table from the raw records, verifies recorded certificate byte counts against the actual files, audits the 50-entry scholarly-reference inventory, independently checks every stored certificate, reruns all finite oracles and mutation tests, and writes `results/reproduction.json`. It deliberately does not overwrite recorded wall/CPU timings.
 
 To rerun the complete one-worker campaign into a new directory before rechecking the retained evidence:
 
@@ -81,7 +81,7 @@ The raw-record-derived frozen totals are:
 
 The 16 stress instances have horizons 8, 16, 32, and 64. Exact finite-state dynamic programming resolves 16/16; paired covers resolve 12/16; independent interval covers resolve 10/16. Unresolved cases remain `unknown` rather than being counted as safe. `results/stress-by-horizon.csv` is regenerated from the raw records; for example, the horizon-eight fresh row contains 2,083 nodes.
 
-The test suite records 188,847 assertion units. It includes 45,072 producer/checker concrete-prefix cross-checks, 45,072 exact-oracle prefix evaluations, 334 accepted stored certificates, 57 rejected mutation/parser/admission inputs, twelve leaf-admission closure/rejection/budget checks, 48 dynamic-program/exhaustive association checks, 4,914 block-factorization prefix checks and four lifted witnesses, 258 exact rounding-modulus comparisons, 73,572 carry-bound checks, 832 fixed-width circuit assignment/mode executions, 867 packed-CNF formulas over 6,474 assignments, 11,320,776 recorded pre-clip values across 7,306 reduction executions, and 30 audited scholarly-reference records. The reduction traces contain no clipping; a separate negative control activates clipping at sequential-state, summary-matrix, summary-bias, and carry-application sites.
+The test suite records 188,867 assertion units. It includes 45,072 producer/checker concrete-prefix cross-checks, 45,072 exact-oracle prefix evaluations, 334 accepted stored certificates, 57 rejected mutation/parser/admission inputs, twelve leaf-admission closure/rejection/budget checks, 48 dynamic-program/exhaustive association checks, 4,914 block-factorization prefix checks and four lifted witnesses, 258 exact rounding-modulus comparisons, 73,572 carry-bound checks, 832 fixed-width circuit assignment/mode executions, 867 packed-CNF formulas over 6,474 assignments, 11,320,776 recorded pre-clip values across 7,306 reduction executions, and 50 audited scholarly-reference records. The reduction traces contain no clipping; a separate negative control activates clipping at sequential-state, summary-matrix, summary-bias, and carry-application sites.
 
 ## Trusted boundary and limitations
 
