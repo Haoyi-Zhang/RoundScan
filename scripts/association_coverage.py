@@ -6,7 +6,6 @@ owned offline case is isolated and finite; no generation, retry or cleanup.
 """
 import argparse
 from collections import Counter
-import hashlib
 from itertools import product
 import json
 from pathlib import Path
@@ -154,9 +153,7 @@ def run(output):
                    'nonempty_prefix_assignments': 48960, 'max_full_per_instance': 256,
                    'methods': list(METHODS), 'max_nodes': 5000,
                    'cooperative_timeout_seconds': 20.0, 'worker_hard_seconds': 120,
-                   'outcome_filter': None, 'timing_comparison': False,
-                   'instances_sha256': hashlib.sha256(json.dumps(
-                       specs, sort_keys=True, separators=(',', ':')).encode()).hexdigest()}
+                   'outcome_filter': None, 'timing_comparison': False}
     exclusive_json(output / 'declaration.json', declaration)
     for spec in specs:
         exclusive_json(cases / (spec['name'] + '.json'), spec)
