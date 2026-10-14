@@ -131,6 +131,14 @@ summary reuse has no separate wall-time measurement.
 
 The checker accepts a closed JSON schema: semantic integers must be JSON integers (not booleans, floats, or strings), duplicate keys and nonstandard numeric constants are rejected, and explicit byte/node/depth plus model-size limits are enforced. It uses a separately written concrete-integer interpreter plus complete multidimensional enumeration or exact scalar DP. It does not use the producer's numbered-atom abstraction to discharge a leaf. The producer and checker share the structural leaf-admission predicate solely to avoid producing leaves the checker cannot replay.
 
+The complete-trace interfaces in both concrete arithmetic paths require every
+input coordinate to lie in its declared box. Run
+`python3 -B -m unittest discover -s tests -p test_trace_input_domain.py -v`
+for independent domain-rejection controls, both endpoint traces of all 72 frozen
+instances, and 1,296 small legal traces across the three association rules and
+two rounding modes. These regression cases are separate from the historical
+campaign and do not update its timing or assertion-unit totals.
+
 General theorem arguments in `proofs/arguments.tex` are hand proofs. The checker and finite tests check implemented cases rather than mechanizing these arguments. The generated suites cover semantics and certificates, not trained-model, accelerator or deployment performance. Input boxes are Cartesian; one scale and rounding mode apply per instance; large multidimensional leaves can exceed the exact checker's admitted limit and force subdivision or `unknown`.
 
 ## License

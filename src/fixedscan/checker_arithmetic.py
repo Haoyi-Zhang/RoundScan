@@ -128,15 +128,27 @@ def _complete_inputs(instance: Instance, prefix: Sequence[int], output: int) -> 
     return tuple(rows)
 
 
-def sequential_trace(instance: Instance, inputs: Sequence[Sequence[int]]) -> tuple[Vector, ...]:
+def _trace_inputs(instance: Instance, inputs: Sequence[Sequence[int]]) -> tuple[Vector, ...]:
+    """Check the complete trace domain independently of the producer kernel."""
     if len(inputs) != instance.horizon:
         raise ValueError("input sequence has wrong horizon")
-    state = instance.h0
-    trace = []
+    rows = []
     for t in range(instance.horizon):
         if len(inputs[t]) != instance.dimension:
             raise ValueError("input vector has wrong dimension")
         row = tuple(_require_int(x, f"inputs[{t}][{i}]") for i, x in enumerate(inputs[t]))
+        for value, box in zip(row, instance.boxes[t]):
+            if value < box.lo or value > box.hi:
+                raise ValueError("input lies outside declared box")
+        rows.append(row)
+    return tuple(rows)
+
+
+def sequential_trace(instance: Instance, inputs: Sequence[Sequence[int]]) -> tuple[Vector, ...]:
+    inputs = _trace_inputs(instance, inputs)
+    state = instance.h0
+    trace = []
+    for t, row in enumerate(inputs):
         state = apply_pair((instance.matrices[t], row), state,
                            width=instance.width, scale=instance.scale, mode=instance.rounding)
         trace.append(state)
@@ -144,8 +156,7 @@ def sequential_trace(instance: Instance, inputs: Sequence[Sequence[int]]) -> tup
 
 
 def lowered_trace(instance: Instance, inputs: Sequence[Sequence[int]]) -> tuple[Vector, ...]:
-    if len(inputs) != instance.horizon:
-        raise ValueError("input sequence has wrong horizon")
+    inputs = _trace_inputs(instance, inputs)
     carry = instance.h0
     trace = []
     for start in range(0, instance.horizon, instance.chunk_length):
@@ -153,9 +164,7 @@ def lowered_trace(instance: Instance, inputs: Sequence[Sequence[int]]) -> tuple[
         leaves: list[Pair] = []
         last = carry
         for t in range(start, stop):
-            if len(inputs[t]) != instance.dimension:
-                raise ValueError("input vector has wrong dimension")
-            row = tuple(_require_int(x, f"inputs[{t}][{i}]") for i, x in enumerate(inputs[t]))
+            row = inputs[t]
             leaves.append((instance.matrices[t], row))
             summary = compose_many(leaves, width=instance.width, scale=instance.scale,
                                    mode=instance.rounding, association=instance.association)

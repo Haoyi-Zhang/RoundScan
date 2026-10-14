@@ -58,6 +58,7 @@ jobs:
           set -euo pipefail
           mkdir -p scientific-output
           timeout --signal=TERM --kill-after=5s 90s python -B tests/test_scalar_summary_cache.py -v 2>&1 | tee scientific-output/scalar-summary.log
+          timeout --signal=TERM --kill-after=5s 90s python -B -m unittest discover -s tests -p test_trace_input_domain.py -v 2>&1 | tee scientific-output/trace-domain.log
       - name: Run the complete fresh campaign and retained regressions
         timeout-minutes: 10
         shell: bash
