@@ -125,11 +125,19 @@ plus five seconds. Completed deterministic searches have reproducible
 claim-bearing statuses, accepted checks, and node counts; timed partial
 progress and CPU/wall/RSS are host dependent. Unix RSS is unavailable on Windows.
 
-The retained native 440-task run has 334 accepted certificates and separate
-host measurements. Full certificate-embedded inputs are available for 85/88
-instances; `stress-005`, `stress-009`, and `stress-013` have no conclusive
-cover or standalone full matrices/boxes in that native-run data. Their rows and
-metadata alone do not establish full-input byte equality.
+The fresh native validation in `results/native-validation.zip` preserves all
+88 complete input files before their workers execute, including `stress-005`,
+`stress-009`, and `stress-013`. All 440 tasks completed without worker errors;
+334 certificates passed an additional checker replay and 18 cover tasks returned
+`unknown`. Every status and every conclusive certificate body and node count
+agrees with the retained campaign. The archive includes the actual executable
+sources, environment, worker output and verification report.
+
+The earlier native archive still retains complete certificate-embedded inputs
+for 85/88 instances. Its three missing inputs are not retroactively recovered
+by this new execution. Fresh host timings stay separate from the manuscript's
+historical measurements. The runner now captures complete inputs for every
+outcome and rejects resumed records lacking their input binding.
 
 Scalar summary reuse is layer-local, keyed by complete chunk-input tuples and
 capped at 4,096 entries. All reference/carry transitions still run, and summaries

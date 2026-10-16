@@ -120,7 +120,36 @@ class ExactBoundaryTests(unittest.TestCase):
                 row = json.loads(path.read_text(encoding='utf-8'))
                 self.assertIn('worker_stdout', row['task'])
                 self.assertIn('worker_stderr', row['task'])
+                saved_input = output / row['input']
+                self.assertEqual(saved_input.read_bytes(),
+                                 (ROOT / 'cases' / 'frozen' / saved_input.name).read_bytes())
         self.assertEqual([path.read_bytes() for path in paths], before)
+
+    def test_inconclusive_tasks_still_retain_complete_input(self):
+        sys.path.insert(0, str(ROOT / 'scripts'))
+        import run_campaign
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp)
+            with patch.object(run_campaign, 'run_task', return_value={
+                    'kind': 'timeout', 'status': 'unknown', 'wall': 0.,
+                    'worker_stdout': '', 'worker_stderr': ''}):
+                run_campaign.run_split('stress', 5, 1, output)
+            source = ROOT / 'cases' / 'stress' / 'stress-005.json'
+            self.assertEqual((output / 'inputs/stress/stress-005.json').read_bytes(),
+                             source.read_bytes())
+            records = list((output / 'raw/stress').glob('*.json'))
+            self.assertEqual(len(records), 5)
+            for path in records:
+                row = json.loads(path.read_text())
+                self.assertEqual(row['input'], 'inputs/stress/stress-005.json')
+                self.assertEqual(row['task']['status'], 'unknown')
+            with patch.object(run_campaign, 'run_task') as worker:
+                with source.open('rb') as handle:
+                    original = handle.read()
+                (output / 'inputs/stress/stress-005.json').write_bytes(original + b' ')
+                with self.assertRaisesRegex(ValueError, 'campaign input changed'):
+                    run_campaign.run_split('stress', 5, 1, output)
+                worker.assert_not_called()
 
     def test_campaign_rejects_historical_output_path(self):
         result = subprocess.run(

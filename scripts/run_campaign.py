@@ -5,9 +5,12 @@ import argparse
 import csv
 import json
 import os
+import platform
+import shutil
 import subprocess
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -107,18 +110,32 @@ def run_split(split: str, start: int = 0, count: int | None = None, results_root
     all_cases = sorted(case_dir.glob("*.json"))
     cases = all_cases[start:] if count is None else all_cases[start:start + count]
     for case_no, case_path in enumerate(cases, start + 1):
-        inst = Instance.load(case_path)
+        # Bind every task, including unknown/timeout outcomes, to complete input
+        # bytes before the worker starts. Certificates are not input archives:
+        # an inconclusive producer may legitimately emit no certificate.
+        input_bytes = case_path.read_bytes()
+        input_path = results_root / "inputs" / split / case_path.name
+        input_path.parent.mkdir(parents=True, exist_ok=True)
+        if input_path.exists():
+            if input_path.read_bytes() != input_bytes:
+                raise ValueError(f"campaign input changed: {input_path}")
+        else:
+            with input_path.open("xb") as handle:
+                handle.write(input_bytes)
+        inst = Instance.load(input_path)
         for method in METHODS:
             raw_path = raw_dir / f"{inst.name}-{method}.json"
             if raw_path.exists():
                 with raw_path.open("r", encoding="utf-8") as f:
                     existing = json.load(f)
+                if existing.get("input") != input_path.relative_to(results_root).as_posix():
+                    raise ValueError(f"unbound existing campaign record: {raw_path}")
                 rows.append(row_from_raw(existing))
                 continue
             cert_path = cert_dir / f"{inst.name}-{method}.json"
             if cert_path.exists():
                 raise FileExistsError(f"orphan certificate must not be overwritten: {cert_path}")
-            task = run_task(case_path, method, split, cert_path)
+            task = run_task(input_path, method, split, cert_path)
             if task.get("certificate"):
                 # Historical records use repository-relative results/... paths;
                 # fresh external campaigns use paths relative to their output.
@@ -150,6 +167,7 @@ def run_split(split: str, start: int = 0, count: int | None = None, results_root
                     raise RuntimeError(f"frozen disagreement for {inst.name}/{method}: {status} != {expected}; task={task}")
             raw = {
                 "case": inst.name, "family": inst.family, "horizon": inst.horizon,
+                "input": input_path.relative_to(results_root).as_posix(),
                 "method": method, "task": task, "checker": checker,
             }
             with raw_path.open("w", encoding="utf-8") as f:
@@ -202,6 +220,24 @@ def main() -> int:
         if results_root == (ROOT / "results").resolve() or (ROOT / "results").resolve() in results_root.parents:
             ap.error("--out must not be inside the shipped results tree")
         results_root.mkdir(parents=True, exist_ok=False)
+        # Keep the executable sources and environment beside the input records.
+        # This identifies a new run without relabelling inherited measurements.
+        for directory in ('scripts', 'src'):
+            for source in sorted((ROOT / directory).rglob('*.py')):
+                destination = results_root / 'source' / source.relative_to(ROOT)
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, destination)
+        environment = {
+            'started_utc': datetime.now(timezone.utc).isoformat(),
+            'python': sys.version, 'executable': sys.executable,
+            'platform': platform.platform(), 'machine': platform.machine(),
+            'processor': platform.processor(), 'logical_cpus': os.cpu_count(),
+            'workers': 1, 'split': args.split, 'start': args.start, 'count': args.count,
+            'input_capture': 'complete original bytes before each worker; raw input path required',
+            'timing_scope': 'fresh host measurements; separate from manuscript historical timings',
+        }
+        (results_root / 'environment.json').write_text(
+            json.dumps(environment, indent=2, sort_keys=True) + '\n', encoding='utf-8')
     splits = ("frozen", "stress") if args.split == "all" else (args.split,)
     for split in splits:
         run_split(split, args.start, args.count, results_root); collect_split(split, results_root)
